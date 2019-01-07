@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './DevApp.vue'
 import '@/assets/main.scss'
+import '@/assets/slides.scss'
 import VueCarousel from 'vue-carousel';
 
 Vue.use(VueCarousel);

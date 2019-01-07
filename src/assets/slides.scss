@@ -1,0 +1,128 @@
+.slide {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    padding: 0 0.5em 0 0;
+    object-fit: cover;
+  }
+  &.is-triple {
+    .right-column {
+      img {
+        display: block;
+        padding: 0 0 0.25em 0;
+        height: calc(50% - 0.25em);
+        width: 100%;
+        &:last-child {
+          padding-bottom: 0;
+          padding-top: 0.25em;
+        }
+      }
+    }
+  }
+  &.is-triple-1 {
+    .right-column {
+      width: 50%;
+      height: 100%;
+    }
+    img.left-column {
+      width: 50%;
+      height: 100%;
+    }
+  }
+  &.is-triple-2 {
+    flex-direction: row-reverse;
+    .right-column {
+      width: 50%;
+      height: 100%;
+      padding-right: 0.5em;
+    }
+    img.left-column {
+      width: 50%;
+      height: 100%;
+      padding: 0;
+    }
+  }
+  &.is-triple-3 {
+    flex-direction: row-reverse;
+    .right-column {
+      width: 30%;
+      height: 100%;
+      padding-right: 0.5em;
+    }
+    img.left-column {
+      width: 70%;
+      height: 100%;
+      padding: 0;
+    }
+  }
+  &.is-triple-4 {
+    .right-column {
+      width: 30%;
+      height: 100%;
+    }
+    img.left-column {
+      width: 70%;
+      height: 100%;
+    }
+  }
+  //three vertical images
+  &.is-triple-5 {
+    .right-column img {
+      width: calc(50% - 0.25em);
+      height: 100%;
+      display: inline-block;
+      padding-right: 0.5em;
+      &:last-child {
+        padding: 0;
+      }
+    }
+    img.left-column {
+      width: 33.333333%;
+      height: 100%;
+    }
+  }
+
+  &.is-double {
+    img {
+      width: 50%;
+      &:last-child {
+        padding: 0;
+      }
+    }
+  }
+  &.is-double-2 {
+    img {
+      width: 30%;
+      &:last-child {
+        width: 70%;
+      }
+    }
+  }
+  &.is-double-3 {
+    flex-direction: row-reverse;
+    img {
+      width: 30%;
+      &:last-child {
+        width: 70%;
+        padding-right: 0.5em;
+      }
+    }
+  }
+  &.is-single {
+    img {
+      padding: 0;
+      object-fit: contain;
+      &.is-horizontal {
+        object-fit: cover;
+      }
+    }
+  }
+}

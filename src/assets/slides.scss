@@ -1,10 +1,14 @@
-.slide {
+.slide-inner{
   height: 100%;
   width: 100%;
   display: flex;
   overflow: hidden;
   align-items: center;
   justify-content: center;
+}
+.slide {
+  height: 100%;
+  width: 100%;
 
   img {
     height: 100%;
@@ -93,8 +97,12 @@
   &.is-double {
     img {
       width: 50%;
+      left: 0;
+      top: 0;
+      position: absolute;
       &:last-child {
         padding: 0;
+        left: calc(50% + 0.5em);
       }
     }
   }
@@ -103,16 +111,17 @@
       width: 30%;
       &:last-child {
         width: 70%;
+        left: calc(30% + 0.5em);
       }
     }
   }
   &.is-double-3 {
-    flex-direction: row-reverse;
     img {
       width: 30%;
+      left: calc(70% + 0.5em);
       &:last-child {
         width: 70%;
-        padding-right: 0.5em;
+        left: 0;
       }
     }
   }

@@ -9,9 +9,13 @@
         <!--:autoplayTimeout="3000"-->
         <!--:autoplayHoverPause="false">-->
         <!--<slide v-for="(slide, idx) in slides" :key="idx">-->
-        <div v-for="(slide, idx) in slides" :key="idx" class="VueCarousel-slide">
-            <component :is="slideTemplate(slide.length)" :class="slideClass(slide)" :images="slide"/>
-        </div>
+        <div @click="play" class="next">Play</div>
+        <component :is="slideTemplate(slide.length)"
+                   v-for="(slide, idx) in slides"
+                   :key="idx"
+                   :isActive="activeSlide == idx"
+                   :class="slideClass(slide)"
+                   :images="slide"/>
         <!--</slide>-->
         <!--</carousel>-->
         <!--</transition>-->
@@ -32,6 +36,9 @@
             return {
                 slides: [],
                 isLoading: false,
+                isPlaying: false,
+                slidesInterval: false,
+                activeSlide: 0,
                 images: [
 
                     {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
@@ -91,10 +98,31 @@
                     })
                     .finally(()=> {
                         this.isLoading = false;
+                        this.play();
 
                     });
         },
         methods: {
+            play(){
+                if (this.slides.length <= 0) return;
+                if (this.slidesInterval && this.isPlaying) {
+                    console.log('clear');
+                    clearInterval(this.slidesInterval);
+                    this.isPlaying = false;
+                    return;
+                }
+                this.slidesInterval = setInterval(()=> {
+                    this.activeSlide++;
+                    console.log('slide', this.activeSlide);
+                    if (this.activeSlide == this.slides.length) {
+                        clearInterval(this.slidesInterval);
+                        console.log('finish');
+                    }
+                }, 4000);
+                console.log('slidesInterval', this.slidesInterval, this.isPlaying);
+
+                this.isPlaying = true;
+            },
             loadImage(src){
                 return new Promise(function (resolve) {
                     let img = new Image();
@@ -183,7 +211,7 @@
                 let index = 0;
                 let size = 1;
                 while (index < images.length) {
-                    size = this.getRandomInt(2, 3);
+                    size = this.getRandomInt(2, 2);
                     this.slides.push(this.rearrangeImages(images.slice(index, size + index)));
                     index = size + index;
                 }

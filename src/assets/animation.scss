@@ -1,4 +1,3 @@
-
 .slide-left-enter,
 .slide-right-leave-active {
   left: -100%!important;
@@ -15,14 +14,4 @@
 
 .slide-top-leave-active, .slide-bottom-enter {
   top: 100%!important;
-}
-
-.next {
-  color: white;
-  cursor: pointer;
-}
-
-.animated-image {
-  transition-duration: 0.5s;
-  transition-property: all;
 }

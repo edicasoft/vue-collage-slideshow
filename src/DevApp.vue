@@ -9,12 +9,12 @@
         <!--:autoplayTimeout="3000"-->
         <!--:autoplayHoverPause="false">-->
         <!--<slide v-for="(slide, idx) in slides" :key="idx">-->
-        <div @click="play" class="next">Play</div>
         <component :is="slideTemplate(slide.length)"
                    v-for="(slide, idx) in slides"
                    :autoplayTimeout="autoplayTimeout"
                    :animationDuration="animationDuration"
                    :key="idx"
+                   v-if="activeSlide == idx"
                    :isActive="activeSlide == idx"
                    :class="slideClass(slide)"
                    :images="slide"/>
@@ -25,8 +25,8 @@
 </template>
 
 <script>
-    import SimpleSlide from './SimpleSlide';
-    import TripleSlide from './TripleSlide';
+    import SimpleSlide from '@/components/slides/SimpleSlide';
+    import TripleSlide from '@/components/slides/TripleSlide';
     import LoadingSpinner from '@/components/LoadingSpinner';
     export default {
         name: 'app',
@@ -103,12 +103,12 @@
                     .finally(()=> {
                         this.isLoading = false;
                         this.play();
-
                     });
         },
         methods: {
             play(){
                 if (this.slides.length <= 0) return;
+                //do not start if it's already playing
                 if (this.slidesInterval && this.isPlaying) {
                     clearInterval(this.slidesInterval);
                     this.isPlaying = false;
@@ -119,8 +119,10 @@
                     console.log('slide', this.activeSlide);
                     if (this.activeSlide == this.slides.length) {
                         clearInterval(this.slidesInterval);
+                        this.isPlaying = false;
                     }
                 }, this.autoplayTimeout);
+
                 this.isPlaying = true;
             },
             loadImage(src){
@@ -164,6 +166,7 @@
                         break;
                     case 3:
                         let classType = `is-triple-${this.getRandomInt(1, 4)}`;
+//                        let classType = `is-triple-${this.getRandomInt(2, 2)}`;
                         if (verticals.length == 3)
                             classType = `is-triple-5`;
                         return `is-triple ${classType}`;
@@ -211,7 +214,7 @@
                 let index = 0;
                 let size = 1;
                 while (index < images.length) {
-                    size = this.getRandomInt(3, 3);
+                    size = this.getRandomInt(2, 3);
                     this.slides.push(this.rearrangeImages(images.slice(index, size + index)));
                     index = size + index;
                 }

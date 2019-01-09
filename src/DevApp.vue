@@ -12,6 +12,8 @@
         <div @click="play" class="next">Play</div>
         <component :is="slideTemplate(slide.length)"
                    v-for="(slide, idx) in slides"
+                   :autoplayTimeout="autoplayTimeout"
+                   :animationDuration="animationDuration"
                    :key="idx"
                    :isActive="activeSlide == idx"
                    :class="slideClass(slide)"
@@ -39,6 +41,8 @@
                 isPlaying: false,
                 slidesInterval: false,
                 activeSlide: 0,
+                animationDuration: 500,
+                autoplayTimeout: 4000,
                 images: [
 
                     {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
@@ -106,7 +110,6 @@
             play(){
                 if (this.slides.length <= 0) return;
                 if (this.slidesInterval && this.isPlaying) {
-                    console.log('clear');
                     clearInterval(this.slidesInterval);
                     this.isPlaying = false;
                     return;
@@ -116,11 +119,8 @@
                     console.log('slide', this.activeSlide);
                     if (this.activeSlide == this.slides.length) {
                         clearInterval(this.slidesInterval);
-                        console.log('finish');
                     }
-                }, 4000);
-                console.log('slidesInterval', this.slidesInterval, this.isPlaying);
-
+                }, this.autoplayTimeout);
                 this.isPlaying = true;
             },
             loadImage(src){
@@ -211,11 +211,10 @@
                 let index = 0;
                 let size = 1;
                 while (index < images.length) {
-                    size = this.getRandomInt(2, 2);
+                    size = this.getRandomInt(3, 3);
                     this.slides.push(this.rearrangeImages(images.slice(index, size + index)));
                     index = size + index;
                 }
-                console.log('SLIDES', this.slides);
             }
         }
     }

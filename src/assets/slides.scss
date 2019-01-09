@@ -17,6 +17,7 @@
     padding: 0 0.5em 0 0;
     object-fit: cover;
   }
+
   &.is-triple {
     .right-column {
       img {
@@ -125,8 +126,12 @@
       }
     }
   }
+
   &.is-single {
     img {
+      position: absolute;
+      left: 0;
+      top: 0;
       padding: 0;
       object-fit: contain;
       &.is-horizontal {

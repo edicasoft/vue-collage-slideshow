@@ -51,7 +51,7 @@
             leaveEl(el, done) {
                 //exit animation
                 const animationName = el.getAttribute('data-animation');
-//                console.log('leave', animationName);
+               //console.log('leave', animationName);
                 el.classList.add(`slide-${animationName}-leave-active`);
                 setTimeout(()=> {
                     done();

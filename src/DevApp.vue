@@ -6,11 +6,10 @@
         <loading-spinner :delay="1500" :loader="isLoading" class="center" text="Loading Images"></loading-spinner>
         <component :is="slideTemplate(slide.length)"
                    v-for="(slide, idx) in slides"
-                   :autoplayTimeout="autoplayTimeout"
                    :animationDuration="animationDuration"
+                   :slidesInterval="slidesInterval"
                    :key="idx"
                    v-if="activeSlide == idx"
-                   :isActive="activeSlide == idx"
                    :status="status"
                    :class="slide.slideClass"
                    :images="slide"/>
@@ -32,13 +31,11 @@
                 slides: [],
                 isLoading: false,
                 status: 0, //  0 = idle, 1 = running, 2 = paused, 3 = resumed
-                slidesInterval: false,
+                slidesTimeout: false,
                 activeSlide: 0,
+                slidesInterval: 4000,
                 animationDuration: 500,
-                autoplayTimeout: 4000,
-                remaining: 0,
-                startTime: 0,
-                remainingTimeout: false,
+                animationTimeout: false,
                 images: [
 
                     {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
@@ -103,9 +100,9 @@
                     });
         },
         methods: {
-            //TODO:: play/pause by the space btn, play in a loop
             pressSpacebar(e){
                 if (e.keyCode == 32) {
+                    console.log(this.status);
                     switch (this.status) {
                         case 1:
                         case 3:
@@ -120,37 +117,35 @@
                 }
             },
             pause(){
-                if (this.slidesInterval) {
-                    clearInterval(this.slidesInterval);
-                    this.remaining = this.autoplayTimeout - (new Date() - this.startTime);
-                    console.log('pause', this.remaining);
-                    this.status = 2;
-                }
+                console.log('pause');
+                clearTimeout(this.slidesTimeout);
+                this.status = 2;
             },
             resume(){
-                console.log('resume', this.remaining);
+                console.log('resume');
                 this.status = 3;
-                if(this.remainingTimeout)
-                    clearTimeout(this.remainingTimeout);
-                this.remainingTimeout = setTimeout(this.startSlidesInterval, this.remaining);
+                clearTimeout(this.animationTimeout);
+                this.animationTimeout = setTimeout(this.nextSlide, this.animationDuration);
             },
             play(){
                 if (this.slides.length <= 0) return;
                 console.log('play');
-                this.status = 1;
-                this.startTime = new Date();
-                this.startSlidesInterval();
+                this.startSlidesTimeout();
             },
-            startSlidesInterval(){
-                this.startTime = new Date();
-                this.slidesInterval = setInterval(()=> {
-                    this.activeSlide++;
-                    console.log('slide', this.activeSlide);
-                    if (this.activeSlide >= this.slides.length) {
-                        this.activeSlide = 0;
-                    }
-                }, this.autoplayTimeout);
+            nextSlide(){
+                this.activeSlide++;
+                if (this.activeSlide >= this.slides.length) {
+                    this.activeSlide = 0;
+                }
+                console.log('slide', this.activeSlide);
+                this.startSlidesTimeout();
+            },
+            startSlidesTimeout(){
                 this.status = 1;
+                clearTimeout(this.slidesTimeout);
+                this.slidesTimeout = setTimeout(()=> {
+                    this.nextSlide();
+                }, this.slidesInterval);
             },
             loadImage(src){
                 return new Promise(function (resolve) {

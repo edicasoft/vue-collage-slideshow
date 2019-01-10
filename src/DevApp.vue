@@ -3,12 +3,7 @@
         <transition name="fade">
             <h1 v-if="noImages  && !isLoading">No Images</h1>
         </transition>
-        <!--<loading-spinner :delay="1500" :loader="isLoading" class="center" text="Loading Images"></loading-spinner>-->
-        <!--<transition name="fade">-->
-        <!--<carousel v-if="!noImages && !isLoading" :per-page="1" :paginationEnabled="false" :autoplay="true"-->
-        <!--:autoplayTimeout="3000"-->
-        <!--:autoplayHoverPause="false">-->
-        <!--<slide v-for="(slide, idx) in slides" :key="idx">-->
+        <loading-spinner :delay="1500" :loader="isLoading" class="center" text="Loading Images"></loading-spinner>
         <component :is="slideTemplate(slide.length)"
                    v-for="(slide, idx) in slides"
                    :autoplayTimeout="autoplayTimeout"
@@ -16,11 +11,9 @@
                    :key="idx"
                    v-if="activeSlide == idx"
                    :isActive="activeSlide == idx"
-                   :class="slideClass(slide)"
+                   :status="status"
+                   :class="slide.slideClass"
                    :images="slide"/>
-        <!--</slide>-->
-        <!--</carousel>-->
-        <!--</transition>-->
     </div>
 </template>
 
@@ -38,11 +31,14 @@
             return {
                 slides: [],
                 isLoading: false,
-                isPlaying: false,
+                status: 0, //  0 = idle, 1 = running, 2 = paused, 3 = resumed
                 slidesInterval: false,
                 activeSlide: 0,
                 animationDuration: 500,
                 autoplayTimeout: 4000,
+                remaining: 0,
+                startTime: 0,
+                remainingTimeout: false,
                 images: [
 
                     {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
@@ -103,27 +99,58 @@
                     .finally(()=> {
                         this.isLoading = false;
                         this.play();
+                        window.addEventListener('keyup', this.pressSpacebar)
                     });
         },
         methods: {
+            //TODO:: play/pause by the space btn, play in a loop
+            pressSpacebar(e){
+                if (e.keyCode == 32) {
+                    switch (this.status) {
+                        case 1:
+                        case 3:
+                            this.pause();
+                            break;
+                        case 2:
+                            this.resume();
+                            break;
+                        default:
+                            this.play()
+                    }
+                }
+            },
+            pause(){
+                if (this.slidesInterval) {
+                    clearInterval(this.slidesInterval);
+                    this.remaining = this.autoplayTimeout - (new Date() - this.startTime);
+                    console.log('pause', this.remaining);
+                    this.status = 2;
+                }
+            },
+            resume(){
+                console.log('resume', this.remaining);
+                this.status = 3;
+                if(this.remainingTimeout)
+                    clearTimeout(this.remainingTimeout);
+                this.remainingTimeout = setTimeout(this.startSlidesInterval, this.remaining);
+            },
             play(){
                 if (this.slides.length <= 0) return;
-                //do not start if it's already playing
-                if (this.slidesInterval && this.isPlaying) {
-                    clearInterval(this.slidesInterval);
-                    this.isPlaying = false;
-                    return;
-                }
+                console.log('play');
+                this.status = 1;
+                this.startTime = new Date();
+                this.startSlidesInterval();
+            },
+            startSlidesInterval(){
+                this.startTime = new Date();
                 this.slidesInterval = setInterval(()=> {
                     this.activeSlide++;
                     console.log('slide', this.activeSlide);
-                    if (this.activeSlide == this.slides.length) {
-                        clearInterval(this.slidesInterval);
-                        this.isPlaying = false;
+                    if (this.activeSlide >= this.slides.length) {
+                        this.activeSlide = 0;
                     }
                 }, this.autoplayTimeout);
-
-                this.isPlaying = true;
+                this.status = 1;
             },
             loadImage(src){
                 return new Promise(function (resolve) {
@@ -154,60 +181,63 @@
                 });
                 return Promise.all(promises);
             },
-            slideClass(slide){
+            getSlideClass(slide){
                 const verticals = slide.filter(item => item.isVertical);
                 const horizontals = slide.filter(item => item.isHorizontal);
                 switch (slide.length) {
                     case 1:
                         return 'is-single';
-                        break;
+                        //vertical image is always goes first
                     case 2:
+                        this.setFirstVertical(slide);
                         return `is-double is-double-${this.getRandomInt(1, 3)}`;
-                        break;
+                        //vertical image is always goes first
                     case 3:
-                        let classType = `is-triple-${this.getRandomInt(1, 4)}`;
-//                        let classType = `is-triple-${this.getRandomInt(2, 2)}`;
-                        if (verticals.length == 3)
-                            classType = `is-triple-5`;
-                        return `is-triple ${classType}`;
-                        break;
+                        const rndType = this.getRandomInt(1, 4);
+//                        console.log('rndType', rndType);
+//                        console.log('verticals', verticals.length);
+                        const classType = `is-triple`;
+                        //for three vertical images in the row
+                        if (verticals.length == 3) {
+                            return `${classType} is-triple-5`;
+                        }
+                        // if a slide has the only one vertical img - use templates that doesn't use 3/4 of a slide width for it
+                        if (verticals.length == 1) {
+                            this.setFirstVertical(slide);
+                            return `${classType} is-triple-${this.getRandomInt(1, 2)}`;
+                        }
+                        // use horizontal image for the 3/4 of a slide width
+                        if (rndType >= 3)
+                            this.setFirstHorizontal(slide);
+                        return `${classType} is-triple-${rndType}`;
                     case 4:
-                        return 'is-four';
-                        break;
+                        return `is-four is-four-${this.getRandomInt(1, 3)}`;
                     case 5:
-                        return 'is-five';
-                        break;
+                        return `is-four is-four-${this.getRandomInt(1, 3)}`;
+                    case 6:
+                        return `is-four is-four-${this.getRandomInt(1, 3)}`;
+                    case 7:
+                        return `is-four is-four-${this.getRandomInt(1, 3)}`;
                 }
             },
             slideTemplate(count){
                 switch (count) {
                     case 3:
                         return 'TripleSlide';
-                        break;
                     default:
                         return 'SimpleSlide';
                 }
             },
             setFirstVertical(slide){
                 slide.sort((x, y) => x.isVertical ? -1 : y.isVertical ? 1 : 0);
-                return slide;
+            },
+            setFirstHorizontal(slide){
+                slide.sort((x, y) => x.isHorizontal ? -1 : y.isHorizontal ? 1 : 0);
             },
             getRandomInt(min, max) {
                 min = Math.ceil(min);
                 max = Math.floor(max);
                 return Math.floor(Math.random() * (max - min + 1)) + min;
-            },
-            rearrangeImages(slide){
-                switch (slide.length) {
-                    case 2:
-                        return this.setFirstVertical(slide);
-                        break;
-                    case 3:
-                        return this.setFirstVertical(slide);
-                        break;
-                    default:
-                        return slide;
-                }
             },
             createCollages(images){
                 this.slides = [];
@@ -215,7 +245,9 @@
                 let size = 1;
                 while (index < images.length) {
                     size = this.getRandomInt(2, 3);
-                    this.slides.push(this.rearrangeImages(images.slice(index, size + index)));
+                    let slide = images.slice(index, size + index);
+                    slide.slideClass = this.getSlideClass(slide);
+                    this.slides.push(slide);
                     index = size + index;
                 }
             }

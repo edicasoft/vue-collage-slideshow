@@ -11,11 +11,25 @@
     export default {
         //a slide with one or two images
         name: 'SimpleSlide',
-        props: ['images', 'isActive', 'autoplayTimeout', 'animationDuration'],
+        props: ['images', 'isActive', 'autoplayTimeout', 'animationDuration', 'status'],
         components: {
             SlideAnimation
         },
+        computed:{
+            endAnimationTime(){
+                return this.autoplayTimeout - this.animationDuration;
+            }
+        },
         watch: {
+            status(newVal, oldVal){
+                console.log(newVal);
+                if (newVal == 2) {
+                    clearTimeout(this.animationTimeout);
+                }
+                else if (newVal == 3) {
+                    this.endAnimationAfter(this.endAnimationTime);
+                }
+            },
             isActive: {
                 immediate: true,
                 handler(newVal, oldVal){
@@ -24,19 +38,24 @@
                             console.log('startAnimation');
                             this.startAnimation = true;
                         }, 10);
-                        if (this.autoplayTimeout) {
-                            setTimeout(()=> {
-                                console.log('endAnimation');
-                                this.startAnimation = false;
-                            }, this.autoplayTimeout - this.animationDuration);
-                        }
+                        this.endAnimationAfter(this.endAnimationTime);
                     }
                 }
             }
         },
         data(){
             return {
-                startAnimation: false
+                startAnimation: false,
+                animationTimeout: false,
+            }
+        },
+        methods: {
+            endAnimationAfter(time){
+                console.log('endAnimationAfter');
+                this.animationTimeout = setTimeout(()=> {
+                    console.log('endAnimation');
+                    this.startAnimation = false;
+                }, time);
             }
         }
     }

@@ -38,12 +38,12 @@
             },
             beforeEnterEl(el) {
                 let an = this.getAnimation(el);
-                console.log('beforeEnterEl', an);
+//                console.log('beforeEnterEl', an);
             },
             enterEl(el, done){
                 setTimeout(()=> {
                     const animationName = el.getAttribute('data-animation');
-                   console.log('enterEl', animationName);
+//                   console.log('enterEl', animationName);
                     el.classList.remove(`slide-${animationName}-enter`);
                     done();
                 }, 100);

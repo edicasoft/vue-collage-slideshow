@@ -45,6 +45,9 @@ $slidePaddingHalf: ($slidePadding/2);
       }
     }
   }
+
+  //50|50
+  //  |50
   &.is-triple-1 {
     .right-column {
       width: 50%;
@@ -62,6 +65,8 @@ $slidePaddingHalf: ($slidePadding/2);
       }
     }
   }
+  //50|50
+  //50|
   &.is-triple-2 {
     flex-direction: row-reverse;
     .right-column {
@@ -82,6 +87,8 @@ $slidePaddingHalf: ($slidePadding/2);
       }
     }
   }
+  //30|70
+  //30|
   &.is-triple-3 {
     flex-direction: row-reverse;
     .right-column {
@@ -100,6 +107,8 @@ $slidePaddingHalf: ($slidePadding/2);
       }
     }
   }
+  //70|30
+  //  |30
   &.is-triple-4 {
     .right-column {
       width: 30%;

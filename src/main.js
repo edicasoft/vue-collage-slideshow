@@ -3,9 +3,7 @@ import App from './DevApp.vue'
 import '@/assets/main.scss'
 import '@/assets/slides.scss'
 import '@/assets/animation.scss'
-import VueCarousel from 'vue-carousel';
 
-Vue.use(VueCarousel);
 Vue.config.productionTip = false
 
 new Vue({

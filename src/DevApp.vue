@@ -198,7 +198,7 @@
                 let index = 0;
                 let size = 1;
                 while (index < images.length) {
-                    size = this.getRandomInt(3, 4);
+                    size = this.getRandomInt(2, 4);
                     let slide = images.slice(index, size + index);
                     this.slides.push(slide);
                     index = size + index;

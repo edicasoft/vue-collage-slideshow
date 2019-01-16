@@ -1,7 +1,7 @@
 <template>
-    <div :class="['slide', slideClass]">
-        <slide-animation :animationDuration="animationDuration" class="slide-inner">
-            <img v-for="(img, idx) in images" :src="img.image" :key="idx" v-if="showImages"
+    <div :class="['slide', 'slide-inner', slideClass]">
+        <slide-animation v-for="(img, idx) in images" :animationDuration="animationDuration" class="img-animated-wrapper">
+            <img :src="img.image" :key="idx" v-if="showImages"
                  :class="[{'is-vertical': img.isVertical, 'is-horizontal': img.isHorizontal}]"/>
         </slide-animation>
     </div>

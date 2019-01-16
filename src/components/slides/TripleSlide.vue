@@ -1,11 +1,15 @@
 <template>
     <div :class="['slide', 'slide-inner', 'is-triple', slideClass]">
-        <slide-animation v-for="(img, idx) in leftColumn" :animationDuration="animationDuration" class="left-column">
-            <img :src="img.image" :key="idx" v-if="showImages"/>
-        </slide-animation>
-        <slide-animation :animationDuration="animationDuration" class="right-column">
-            <img v-for="(img, idx) in rightColumn" :src="img.image" :key="idx" v-if="showImages"/>
-        </slide-animation>
+        <div class="left-column">
+            <slide-animation v-for="(img, idx) in leftColumn" :animationDuration="animationDuration" class="img-animated-wrapper">
+                <img :src="img.image" :key="idx" v-if="showImages"/>
+            </slide-animation>
+        </div>
+        <div class="right-column">
+            <slide-animation v-for="(img, idx) in rightColumn" :animationDuration="animationDuration" class="img-animated-wrapper">
+                <img :src="img.image" :key="idx" v-if="showImages"/>
+            </slide-animation>
+        </div>
     </div>
 </template>
 <script>

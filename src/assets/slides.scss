@@ -12,17 +12,24 @@ $slidePaddingHalf: ($slidePadding/2);
 .slide {
   height: 100%;
   width: 100%;
-
-  img {
-    height: 100%;
-    width: 100%;
-    padding: 0 $slidePadding 0 0;
-    object-fit: cover;
-    position: absolute;
+  .img-animated-wrapper {
     left: 0;
     top: 0;
-    transition-duration: 0.5s;
-    transition-property: all;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      object-fit: cover;
+      position: absolute;
+      left: 0;
+      top: 0;
+      transition-duration: 0.5s;
+      transition-property: all;
+    }
   }
 
   &.is-triple {
@@ -33,14 +40,11 @@ $slidePaddingHalf: ($slidePadding/2);
     .right-column {
       overflow: hidden;
       position: relative;
-      img {
-        padding: 0 0 $slidePaddingHalf 0;
+      .img-animated-wrapper {
         height: calc(50% - #{$slidePaddingHalf});
         width: 100%;
         &:last-child {
-          padding-bottom: 0;
-          padding-top: $slidePaddingHalf;
-          top: 50%;
+          top: calc(50% + #{$slidePaddingHalf});
         }
       }
     }
@@ -50,14 +54,14 @@ $slidePaddingHalf: ($slidePadding/2);
       .right-column {
         width: 50%;
         height: 100%;
-        img {
+        .img-animated-wrapper {
           left: $slidePadding;
         }
       }
       .left-column {
         width: 50%;
         height: 100%;
-        img {
+        .img-animated-wrapper {
           width: 100%;
           height: 100%;
         }
@@ -70,15 +74,11 @@ $slidePaddingHalf: ($slidePadding/2);
       .right-column {
         width: 50%;
         height: 100%;
-        img {
-          padding-right: $slidePadding;
-        }
       }
       .left-column {
         width: 50%;
         height: 100%;
-        padding: 0;
-        img {
+        .img-animated-wrapper {
           width: 100%;
           height: 100%;
           left: $slidePadding;
@@ -92,13 +92,11 @@ $slidePaddingHalf: ($slidePadding/2);
       .right-column {
         width: 30%;
         height: 100%;
-        padding-right: $slidePadding;
       }
       .left-column {
         width: 70%;
         height: 100%;
-        padding: 0;
-        img {
+        .img-animated-wrapper {
           width: 100%;
           height: 100%;
           left: $slidePadding;
@@ -111,14 +109,14 @@ $slidePaddingHalf: ($slidePadding/2);
       .right-column {
         width: 30%;
         height: 100%;
-        img {
+        .img-animated-wrapper {
           left: $slidePadding;
         }
       }
       .left-column {
         width: 70%;
         height: 100%;
-        img {
+        .img-animated-wrapper {
           width: 100%;
           height: 100%;
         }
@@ -129,13 +127,11 @@ $slidePaddingHalf: ($slidePadding/2);
       .right-column {
         width: calc(100% - 33.333333%);
         height: 100%;
-        img {
+        .img-animated-wrapper {
           width: calc(50% - #{$slidePadding});
           height: 100%;
           left: $slidePadding;
-          padding-right: $slidePadding;
           &:last-child {
-            padding: 0;
             left: calc(50% + #{$slidePadding});
             top: 0;
           }
@@ -144,7 +140,7 @@ $slidePaddingHalf: ($slidePadding/2);
       .left-column {
         width: 33.333333%;
         height: 100%;
-        img {
+        .img-animated-wrapper {
           width: 100%;
           height: 100%;
         }
@@ -153,15 +149,14 @@ $slidePaddingHalf: ($slidePadding/2);
   }
 
   &.is-double {
-    img {
+    .img-animated-wrapper {
       width: 50%;
       &:last-child {
-        padding: 0;
         left: calc(50% + #{$slidePadding});
       }
     }
     &.is-double-2 {
-      img {
+      .img-animated-wrapper {
         width: 30%;
         &:last-child {
           width: 70%;
@@ -170,7 +165,7 @@ $slidePaddingHalf: ($slidePadding/2);
       }
     }
     &.is-double-3 {
-      img {
+      .img-animated-wrapper {
         width: 30%;
         left: calc(70% + #{$slidePadding});
         &:last-child {
@@ -183,7 +178,6 @@ $slidePaddingHalf: ($slidePadding/2);
 
   &.is-single {
     img {
-      padding: 0;
       object-fit: contain;
       &.is-horizontal {
         object-fit: cover;
@@ -198,10 +192,11 @@ $slidePaddingHalf: ($slidePadding/2);
       position: relative;
     }
     //50|50
+    //-----
     //50|50
     &.is-four-1 {
       .right-column, .left-column {
-        img {
+        .img-animated-wrapper {
           height: calc(50% - #{$slidePaddingHalf});
           width: 100%;
           &:last-child {
@@ -209,23 +204,24 @@ $slidePaddingHalf: ($slidePadding/2);
           }
         }
       }
-      .left-column img {
+      .left-column .img-animated-wrapper {
         width: calc(100% - #{$slidePaddingHalf});
       }
-      .right-column img {
+      .right-column .img-animated-wrapper {
         left: $slidePaddingHalf;
       }
 
     }
-    //50| 50
-    //  |25|25
+    // 50 | 50
+    // ---------
+    //    |25|25
     &.is-four-2 {
-      .left-column img {
+      .left-column .img-animated-wrapper {
         width: calc(100% - #{$slidePaddingHalf});
         height: 100%;
       }
       .right-column {
-        img {
+        .img-animated-wrapper {
           left: $slidePaddingHalf;
           &:nth-child(1) {
             height: calc(50% - #{$slidePaddingHalf});
@@ -245,15 +241,18 @@ $slidePaddingHalf: ($slidePadding/2);
         }
       }
     }
+    //   50 | 50
+    // -----------
+    // 25|25|
     &.is-four-3 {
       flex-direction: row-reverse;
-      .left-column img {
+      .left-column .img-animated-wrapper {
         left: $slidePaddingHalf;
         width: 100%;
         height: 100%;
       }
       .right-column {
-        img {
+        .img-animated-wrapper {
           &:nth-child(1) {
             height: calc(50% - #{$slidePaddingHalf});
             width: calc(100% - #{$slidePaddingHalf})

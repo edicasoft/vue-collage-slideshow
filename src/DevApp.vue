@@ -11,7 +11,6 @@
                    :key="idx"
                    v-if="activeSlide == idx"
                    :status="status"
-                   :class="slide.slideClass"
                    :images="slide"/>
     </div>
 </template>
@@ -19,11 +18,12 @@
 <script>
     import SimpleSlide from '@/components/slides/SimpleSlide';
     import TripleSlide from '@/components/slides/TripleSlide';
+    import FourImagesSlide from '@/components/slides/FourImagesSlide';
     import LoadingSpinner from '@/components/LoadingSpinner';
     export default {
         name: 'app',
         components: {
-            SimpleSlide, TripleSlide, LoadingSpinner
+            SimpleSlide, TripleSlide, FourImagesSlide, LoadingSpinner
         },
 //        props:['images'],
         data(){
@@ -39,6 +39,8 @@
                 images: [
 
                     {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
+
+                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},      {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
 
                     {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
                     {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
@@ -176,58 +178,15 @@
                 });
                 return Promise.all(promises);
             },
-            getSlideClass(slide){
-                const verticals = slide.filter(item => item.isVertical);
-                const horizontals = slide.filter(item => item.isHorizontal);
-                switch (slide.length) {
-                    case 1:
-                        return 'is-single';
-                        //vertical image is always goes first
-                    case 2:
-                        this.setFirstVertical(slide);
-                        return `is-double is-double-${this.getRandomInt(1, 3)}`;
-                        //vertical image is always goes first
-                    case 3:
-                        const rndType = this.getRandomInt(1, 4);
-//                        console.log('rndType', rndType);
-//                        console.log('verticals', verticals.length);
-                        const classType = `is-triple`;
-                        //for three vertical images in the row
-                        if (verticals.length == 3) {
-                            return `${classType} is-triple-5`;
-                        }
-                        // if a slide has the only one vertical img - use templates that doesn't use 3/4 of a slide width for it
-                        if (verticals.length == 1) {
-                            this.setFirstVertical(slide);
-                            return `${classType} is-triple-${this.getRandomInt(1, 2)}`;
-                        }
-                        // use horizontal image for the 3/4 of a slide width
-                        if (rndType >= 3)
-                            this.setFirstHorizontal(slide);
-                        return `${classType} is-triple-${rndType}`;
-                    case 4:
-                        return `is-four is-four-${this.getRandomInt(1, 3)}`;
-                    case 5:
-                        return `is-four is-four-${this.getRandomInt(1, 3)}`;
-                    case 6:
-                        return `is-four is-four-${this.getRandomInt(1, 3)}`;
-                    case 7:
-                        return `is-four is-four-${this.getRandomInt(1, 3)}`;
-                }
-            },
             slideTemplate(count){
                 switch (count) {
                     case 3:
                         return 'TripleSlide';
+                    case 4:
+                        return 'FourImagesSlide';
                     default:
                         return 'SimpleSlide';
                 }
-            },
-            setFirstVertical(slide){
-                slide.sort((x, y) => x.isVertical ? -1 : y.isVertical ? 1 : 0);
-            },
-            setFirstHorizontal(slide){
-                slide.sort((x, y) => x.isHorizontal ? -1 : y.isHorizontal ? 1 : 0);
             },
             getRandomInt(min, max) {
                 min = Math.ceil(min);
@@ -239,9 +198,8 @@
                 let index = 0;
                 let size = 1;
                 while (index < images.length) {
-                    size = this.getRandomInt(2, 3);
+                    size = this.getRandomInt(3, 4);
                     let slide = images.slice(index, size + index);
-                    slide.slideClass = this.getSlideClass(slide);
                     this.slides.push(slide);
                     index = size + index;
                 }

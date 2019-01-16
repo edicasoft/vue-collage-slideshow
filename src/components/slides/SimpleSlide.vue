@@ -1,5 +1,5 @@
 <template>
-    <div class="slide">
+    <div :class="['slide', slideClass]">
         <slide-animation :animationDuration="animationDuration" class="slide-inner">
             <img v-for="(img, idx) in images" :src="img.image" :key="idx" v-if="showImages"
                  :class="[{'is-vertical': img.isVertical, 'is-horizontal': img.isHorizontal}]"/>
@@ -24,6 +24,22 @@
         computed: {
             leaveStartTime(){
                 return this.slidesInterval - this.animationDuration;
+            },
+            horizontalImages(){
+                return this.images.filter(item => item.isHorizontal)
+            },
+            verticalImages(){
+                return this.images.filter(item => item.isVertical)
+            },
+            slideClass(){
+                switch (this.images.length) {
+                    case 1:
+                        return 'is-single';
+                        //vertical image is always goes first
+                    case 2:
+                        this.setFirstVertical(this.images);
+                        return `is-double is-double-${this.getRandomInt(1, 3)}`;
+                }
             }
         },
         watch: {
@@ -49,10 +65,23 @@
             playLeave(time){
                 clearTimeout(this.startLeaveTimeout);
                 this.startLeaveTimeout = setTimeout(()=> {
-                    console.log('playLeave');
+//                    console.log('playLeave');
                     this.showImages = false;
                 }, time);
+            },
+
+            setFirstVertical(slide){
+                slide.sort((x, y) => x.isVertical ? -1 : y.isVertical ? 1 : 0);
+            },
+            setFirstHorizontal(slide){
+                slide.sort((x, y) => x.isHorizontal ? -1 : y.isHorizontal ? 1 : 0);
+            },
+            getRandomInt(min, max) {
+                min = Math.ceil(min);
+                max = Math.floor(max);
+                return Math.floor(Math.random() * (max - min + 1)) + min;
             }
+
         }
     }
 </script>

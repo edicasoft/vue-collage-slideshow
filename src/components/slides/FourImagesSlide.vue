@@ -21,8 +21,9 @@
 
         computed: {
             slideClass(){
-                if (this.verticalImages.length >= 1) {
+                if (this.verticalImages.length > 0) {
                     this.setFirstVertical(this.images);
+                    this.replaceVerticalsInPositions([1]);
                     return `${this.getRandomInt(4, 5)}`;
                 }
                 return `${this.getRandomInt(1, 5)}`;

@@ -38,15 +38,38 @@
                 animationDuration: 500,
                 animationTimeout: false,
                 images: [
-
                     {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
+                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
+                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
+                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
+                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
+
+
                     {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
 
                     {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
 
+                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
+
+                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
+                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
+
+                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
 
                     {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
                     {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
+
+
+                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
+                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
+
+
+                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
+                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
+                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
+                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
+                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
+
 
                     {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
                     {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
@@ -107,7 +130,7 @@
         methods: {
             pressSpacebar(e){
                 if (e.keyCode == 32) {
-                    console.log(this.status);
+//                    console.log(this.status);
                     switch (this.status) {
                         case 1:
                         case 3:
@@ -122,19 +145,19 @@
                 }
             },
             pause(){
-                console.log('pause');
+//                console.log('pause');
                 clearTimeout(this.slidesTimeout);
                 this.status = 2;
             },
             resume(){
-                console.log('resume');
+//                console.log('resume');
                 this.status = 3;
                 clearTimeout(this.animationTimeout);
                 this.animationTimeout = setTimeout(this.nextSlide, this.animationDuration);
             },
             play(){
                 if (this.slides.length <= 0) return;
-                console.log('play');
+//                console.log('play');
                 this.startSlidesTimeout();
             },
             nextSlide(){
@@ -142,7 +165,7 @@
                 if (this.activeSlide >= this.slides.length) {
                     this.activeSlide = 0;
                 }
-                console.log('slide', this.activeSlide);
+//                console.log('slide', this.activeSlide);
                 this.startSlidesTimeout();
             },
             startSlidesTimeout(){
@@ -152,6 +175,7 @@
                     this.nextSlide();
                 }, this.slidesInterval);
             },
+            //TODO::remove idx
             loadImage(src, idx){
                 return new Promise(function (resolve) {
                     let img = new Image();
@@ -203,7 +227,7 @@
                 let index = 0;
                 let size = 1;
                 while (index < images.length) {
-                    size = this.getRandomInt(5, 5);
+                    size = this.getRandomInt(3, 5);
                     let slide = images.slice(index, size + index);
                     this.slides.push(slide);
                     index = size + index;

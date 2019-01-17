@@ -404,39 +404,6 @@ $slidePaddingHalf: ($slidePadding/2);
           height: calc(50% - #{$slidePaddingHalf});
           width: calc(100% - #{$slidePaddingHalf});
           &:nth-child(1) {
-
-          }
-          &:nth-child(2) {
-            top: calc(50% + #{$slidePaddingHalf});
-          }
-          &:nth-child(3) {
-            top: calc(50% + #{$slidePaddingHalf});
-          }
-          &:nth-child(4) {
-            top: calc(50% + #{$slidePaddingHalf});
-          }
-        }
-      }
-    }
-
-    //reverse of the 'is-five-3'
-    &.is-five-2 {
-      .right-column, .left-column {
-        height: 100%;
-        width: 50%;
-      }
-      .left-column {
-        .img-animated-wrapper {
-          height: 100%;
-          width: calc(100% - #{$slidePaddingHalf});
-        }
-      }
-      .right-column {
-        .img-animated-wrapper {
-          left: $slidePaddingHalf;
-          height: calc(50% - #{$slidePaddingHalf});
-          width: calc(100% - #{$slidePaddingHalf});
-          &:nth-child(1) {
             height: calc(50% - #{$slidePaddingHalf});
           }
           &:nth-child(2) {
@@ -454,6 +421,47 @@ $slidePaddingHalf: ($slidePadding/2);
             top: calc(75% + #{$slidePadding});
             height: calc(25% - #{$slidePaddingHalf});
             width: calc(50% - #{$slidePadding});
+          }
+        }
+      }
+    }
+
+    //reverse of the 'is-five-3'
+    &.is-five-2 {
+      flex-direction: row-reverse;
+      .right-column, .left-column {
+        height: 100%;
+        width: 50%;
+      }
+      .left-column {
+        .img-animated-wrapper {
+          height: 100%;
+          left: $slidePaddingHalf;
+          width: calc(100% - #{$slidePaddingHalf});
+        }
+      }
+      .right-column {
+        .img-animated-wrapper {
+          height: calc(50% - #{$slidePaddingHalf});
+          width: calc(100% - #{$slidePaddingHalf});
+          &:nth-child(1) {
+            height: calc(50% - #{$slidePaddingHalf});
+          }
+          &:nth-child(2) {
+            top: calc(50% + #{$slidePaddingHalf});
+            height: calc(25% - #{$slidePaddingHalf});
+            width: calc(50% - #{$slidePaddingHalf});
+          }
+          &:nth-child(3) {
+            top: calc(50% + #{$slidePaddingHalf});
+            left: calc(50% + #{$slidePaddingHalf});
+            width: calc(50% - #{$slidePadding});
+            height: calc(50% - 0.2em);
+          }
+          &:nth-child(4) {
+            top: calc(75% + #{$slidePadding});
+            height: calc(25% - #{$slidePaddingHalf});
+            width: calc(50% - #{$slidePaddingHalf});
           }
         }
       }

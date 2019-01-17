@@ -1,6 +1,7 @@
 <template>
     <div :class="['slide', 'slide-inner', slideClass]">
-        <slide-animation v-for="(img, idx) in images" :animationDuration="animationDuration" class="img-animated-wrapper">
+        <slide-animation v-for="(img, idx) in images" :animationDuration="animationDuration"
+                         class="img-animated-wrapper">
             <img :src="img.image" :key="idx" v-if="showImages"
                  :class="[{'is-vertical': img.isVertical, 'is-horizontal': img.isHorizontal}]"/>
         </slide-animation>
@@ -62,6 +63,24 @@
             }
         },
         methods: {
+            replaceVerticalsInPositions(neededIdxs){
+                if (!neededIdxs || neededIdxs.length == 0 || this.horizontalImages.length == 0) return;
+                neededIdxs.forEach(idx => {
+                    if (this.images[idx] && this.images[idx].isVertical) {
+                        //find indexes of horizontal images
+                        let horizontalIdxs = this.horizontalImages.map(item => this.images.indexOf(item));
+                        //remove indexes which already are in appropriate places
+                        horizontalIdxs = horizontalIdxs.filter((el) => !neededIdxs.includes(el));
+//                        console.log('horizontalIdxs', horizontalIdxs);
+                        //swap any horizontal image with founded vertical
+                        let horizontalIdx = horizontalIdxs[0];
+                        if(horizontalIdx != null){
+                            [this.images[idx], this.images[horizontalIdx]] = [this.images[horizontalIdx], this.images[idx]];
+                        }
+//                        console.log('swap', horizontalIdxs[0], '->', idx);
+                    }
+                });
+            },
             playLeave(time){
                 clearTimeout(this.startLeaveTimeout);
                 this.startLeaveTimeout = setTimeout(()=> {

@@ -23,9 +23,9 @@
             slideClass(){
                 if (this.verticalImages.length >= 1) {
                     this.setFirstVertical(this.images);
-                    return `${this.getRandomInt(2, 3)}`;
+                    return `${this.getRandomInt(4, 5)}`;
                 }
-                return `${this.getRandomInt(1, 3)}`;
+                return `${this.getRandomInt(1, 5)}`;
             },
             leftColumn(){
                 return this.slideClass == 1 ? this.images.slice(0, 2) : this.images.slice(0, 1);

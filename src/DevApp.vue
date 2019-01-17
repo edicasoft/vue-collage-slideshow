@@ -19,11 +19,12 @@
     import SimpleSlide from '@/components/slides/SimpleSlide';
     import TripleSlide from '@/components/slides/TripleSlide';
     import FourImagesSlide from '@/components/slides/FourImagesSlide';
+    import FiveImagesSlide from '@/components/slides/FiveImagesSlide';
     import LoadingSpinner from '@/components/LoadingSpinner';
     export default {
         name: 'app',
         components: {
-            SimpleSlide, TripleSlide, FourImagesSlide, LoadingSpinner
+            SimpleSlide, TripleSlide, FourImagesSlide, LoadingSpinner, FiveImagesSlide
         },
 //        props:['images'],
         data(){
@@ -39,14 +40,16 @@
                 images: [
 
                     {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
+                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
 
-                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},      {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
+                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
+
+
+                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
+                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
 
                     {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
                     {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-                    {image: "http://www.baltana.com/files/wallpapers-1/Lotus-HD-Wallpapers-02797.jpg"},
-
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Verticalsad.JPG/802px-Eiffel_Tower_Vertical.JPG"},
 
                     {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
                     {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
@@ -149,12 +152,13 @@
                     this.nextSlide();
                 }, this.slidesInterval);
             },
-            loadImage(src){
+            loadImage(src, idx){
                 return new Promise(function (resolve) {
                     let img = new Image();
                     img.onload = function () {
                         const isHorizontal = this.width >= this.height;
                         resolve({
+                            idx,
                             image: src,
                             isHorizontal: isHorizontal,
                             isVertical: !isHorizontal,
@@ -170,11 +174,10 @@
                 });
             },
             loadImages(){
-                this.slides = [];
                 var promises = [];
 
-                this.images.forEach(item => {
-                    promises.push(this.loadImage(item.image));
+                this.images.forEach((item, idx)=> {
+                    promises.push(this.loadImage(item.image, idx));
                 });
                 return Promise.all(promises);
             },
@@ -184,6 +187,8 @@
                         return 'TripleSlide';
                     case 4:
                         return 'FourImagesSlide';
+                    case 5:
+                        return 'FiveImagesSlide';
                     default:
                         return 'SimpleSlide';
                 }
@@ -198,7 +203,7 @@
                 let index = 0;
                 let size = 1;
                 while (index < images.length) {
-                    size = this.getRandomInt(2, 4);
+                    size = this.getRandomInt(5, 5);
                     let slide = images.slice(index, size + index);
                     this.slides.push(slide);
                     index = size + index;

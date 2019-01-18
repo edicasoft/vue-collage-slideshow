@@ -54,6 +54,7 @@
                //console.log('leave', animationName);
                 el.classList.add(`slide-${animationName}-leave-active`);
                 setTimeout(()=> {
+//                    console.log('done');
                     done();
                 }, this.animationDuration);
             },

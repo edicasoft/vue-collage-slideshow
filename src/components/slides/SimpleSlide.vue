@@ -18,13 +18,15 @@
         },
         created(){
             setTimeout(()=> {
+//                console.log('showImages');
                 this.showImages = true;
             }, 10);
             this.playLeave(this.leaveStartTime);
         },
         computed: {
             leaveStartTime(){
-                return this.slidesInterval - this.animationDuration;
+                //100 - beforeEnter timeout
+                return this.slidesInterval - this.animationDuration + 100;
             },
             horizontalImages(){
                 return this.images.filter(item => item.isHorizontal)
@@ -36,10 +38,14 @@
                 switch (this.images.length) {
                     case 1:
                         return 'is-single';
-                        //vertical image is always goes first
+                        //vertical image is always goes first (in order to contain maximum 50%, usually 30%, of the screen width)
                     case 2:
-                        this.setFirstVertical(this.images);
-                        return `is-double is-double-${this.getRandomInt(1, 3)}`;
+                        if(this.verticalImages.length > 0){
+                            this.setFirstVertical(this.images);
+                            return `is-double is-double-${this.getRandomInt(1, 3)}`;
+                        } else{ //use 50|50 template if there are no vertical images
+                            return `is-double is-double-1`;
+                        }
                 }
             }
         },

@@ -165,7 +165,7 @@
                 if (this.activeSlide >= this.slides.length) {
                     this.activeSlide = 0;
                 }
-//                console.log('slide', this.activeSlide);
+//               console.log('slide', this.activeSlide);
                 this.startSlidesTimeout();
             },
             startSlidesTimeout(){
@@ -182,7 +182,7 @@
                     img.onload = function () {
                         const isHorizontal = this.width >= this.height;
                         resolve({
-                            idx,
+//                            idx,
                             image: src,
                             isHorizontal: isHorizontal,
                             isVertical: !isHorizontal,
@@ -227,7 +227,7 @@
                 let index = 0;
                 let size = 1;
                 while (index < images.length) {
-                    size = this.getRandomInt(3, 5);
+                    size = this.getRandomInt(2, 5);
                     let slide = images.slice(index, size + index);
                     this.slides.push(slide);
                     index = size + index;

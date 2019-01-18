@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import App from './DevApp.vue'
+import App from './App.vue'
 import '@/assets/main.scss'
 import '@/assets/slides.scss'
 import '@/assets/animation.scss'

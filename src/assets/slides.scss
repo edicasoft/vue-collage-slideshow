@@ -9,7 +9,7 @@ $slidePaddingHalf: ($slidePadding/2);
   justify-content: center;
 }
 
-.slide {
+.slide.active {
   height: 100%;
   width: 100%;
   .img-animated-wrapper {
@@ -32,7 +32,7 @@ $slidePaddingHalf: ($slidePadding/2);
     }
   }
 
-  &.is-triple {
+  .is-triple {
     .left-column {
       overflow: hidden;
       position: relative;
@@ -148,7 +148,7 @@ $slidePaddingHalf: ($slidePadding/2);
     }
   }
 
-  &.is-double {
+  .is-double {
     .img-animated-wrapper {
       width: 50%;
       &:last-child {
@@ -176,7 +176,7 @@ $slidePaddingHalf: ($slidePadding/2);
     }
   }
 
-  &.is-single {
+  .is-single {
     img {
       object-fit: contain;
       &.is-horizontal {
@@ -184,7 +184,7 @@ $slidePaddingHalf: ($slidePadding/2);
       }
     }
   }
-  &.is-four {
+  .is-four {
     .right-column, .left-column {
       width: 50%;
       height: 100%;
@@ -339,7 +339,7 @@ $slidePaddingHalf: ($slidePadding/2);
       }
     }
   }
-  &.is-five {
+  .is-five {
     .right-column, .left-column, .center-column {
       overflow: hidden;
       position: relative;

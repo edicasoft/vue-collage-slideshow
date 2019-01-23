@@ -1,10 +1,11 @@
 <template>
-    <div :class="['slide', 'slide-inner', slideClass]">
-        <slide-animation v-for="(img, idx) in images" :animationDuration="animationDuration"
-                         class="img-animated-wrapper">
-            <img :src="img.image" :key="idx" v-if="showImages"
-                 :class="[{'is-vertical': img.isVertical, 'is-horizontal': img.isHorizontal}]"/>
-        </slide-animation>
+    <div :class="['slide-inner', slideClass]">
+        <div class="img-animated-wrapper" v-for="(img, idx) in images" :key="idx">
+            <slide-animation :animationDuration="animationDuration">
+                <img :src="img.image" v-if="showImages"
+                     :class="[{'is-vertical': img.isVertical, 'is-horizontal': img.isHorizontal}]"/>
+            </slide-animation>
+        </div>
     </div>
 </template>
 <script>
@@ -12,13 +13,12 @@
     export default {
         //a slide with one or two images
         name: 'SimpleSlide',
-        props: ['images', 'isActive', 'slidesInterval', 'status', 'animationDuration'],
+        props: ['images', 'slidesInterval', 'status', 'animationDuration'],
         components: {
             SlideAnimation
         },
         created(){
             setTimeout(()=> {
-//                console.log('showImages');
                 this.showImages = true;
             }, 10);
             this.playLeave(this.leaveStartTime);
@@ -40,10 +40,10 @@
                         return 'is-single';
                         //vertical image is always goes first (in order to contain maximum 50%, usually 30%, of the screen width)
                     case 2:
-                        if(this.verticalImages.length > 0){
+                        if (this.verticalImages.length > 0) {
                             this.setFirstVertical(this.images);
                             return `is-double is-double-${this.getRandomInt(1, 3)}`;
-                        } else{ //use 50|50 template if there are no vertical images
+                        } else { //use 50|50 template if there are no vertical images
                             return `is-double is-double-1`;
                         }
                 }
@@ -59,7 +59,7 @@
                 if (newVal == 3) {
                     this.playLeave(0);
                 }
-            },
+            }
         },
         data(){
             return {
@@ -80,7 +80,7 @@
 //                        console.log('horizontalIdxs', horizontalIdxs);
                         //swap any horizontal image with founded vertical
                         let horizontalIdx = horizontalIdxs[0];
-                        if(horizontalIdx != null){
+                        if (horizontalIdx != null) {
                             [this.images[idx], this.images[horizontalIdx]] = [this.images[horizontalIdx], this.images[idx]];
                         }
 //                        console.log('swap', horizontalIdxs[0], '->', idx);

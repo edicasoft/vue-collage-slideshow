@@ -1,12 +1,11 @@
 <template>
-    <transition-group functional
+    <transition functional
                       @enter="enterEl"
                       @leave="leaveEl"
                       @before-enter="beforeEnterEl"
-                      :css="false"
-                      tag="div">
+                      :css="false">
         <slot></slot>
-    </transition-group>
+    </transition>
 </template>
 
 <script>
@@ -37,8 +36,7 @@
                 return animation.name;
             },
             beforeEnterEl(el) {
-                let an = this.getAnimation(el);
-//                console.log('beforeEnterEl', an);
+                this.getAnimation(el);
             },
             enterEl(el, done){
                 setTimeout(()=> {
@@ -51,7 +49,7 @@
             leaveEl(el, done) {
                 //exit animation
                 const animationName = el.getAttribute('data-animation');
-               //console.log('leave', animationName);
+                //console.log('leave', animationName);
                 el.classList.add(`slide-${animationName}-leave-active`);
                 setTimeout(()=> {
 //                    console.log('done');

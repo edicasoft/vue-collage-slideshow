@@ -1,17 +1,17 @@
 <template>
     <div id="app">
-        <transition name="fade">
-            <h1 v-if="noImages  && !isLoading">No Images</h1>
-        </transition>
-        <loading-spinner :delay="1500" :loader="isLoading" class="center" text="Loading Images"></loading-spinner>
-        <component :is="slideTemplate(slide.length)"
-                   v-for="(slide, idx) in slides"
-                   :animationDuration="animationDuration"
-                   :slidesInterval="slidesInterval"
-                   :key="idx"
-                   v-if="activeSlide == idx"
-                   :status="status"
-                   :images="slide"/>
+        <!--<transition name="fade">-->
+            <!--<h1 v-if="noImages  && !isLoading">No Images</h1>-->
+        <!--</transition>-->
+        <!--<loading-spinner :delay="1500" :loader="isLoading" class="center" text="Loading Images"></loading-spinner>-->
+        <!--<div :class="['slide', {'active' : activeSlideIdx == idx}]" v-for="(slide, idx) in slides" :key="idx">-->
+            <!--<component :is="slideTemplate(slide.length)"-->
+                       <!--:animationDuration="animationDuration"-->
+                       <!--:slidesInterval="slidesInterval"-->
+                       <!--v-if="activeSlideIdx == idx"-->
+                       <!--:status="status"-->
+                       <!--:images="slide"/>-->
+        <!--</div>-->
     </div>
 </template>
 
@@ -21,6 +21,7 @@
     import FourImagesSlide from '@/components/slides/FourImagesSlide';
     import FiveImagesSlide from '@/components/slides/FiveImagesSlide';
     import LoadingSpinner from '@/components/LoadingSpinner';
+    import
     export default {
         name: 'app',
         components: {
@@ -33,7 +34,7 @@
                 isLoading: false,
                 status: 0, //  0 = idle, 1 = running, 2 = paused, 3 = resumed
                 slidesTimeout: false,
-                activeSlide: 0,
+                activeSlideIdx: 0,
                 slidesInterval: 4000,
                 animationDuration: 500,
                 animationTimeout: false,
@@ -128,6 +129,18 @@
                     });
         },
         methods: {
+            slideTemplate(count){
+                switch (count) {
+                    case 3:
+                        return 'TripleSlide';
+                    case 4:
+                        return 'FourImagesSlide';
+                    case 5:
+                        return 'FiveImagesSlide';
+                    default:
+                        return 'SimpleSlide';
+                }
+            },
             pressSpacebar(e){
                 if (e.keyCode == 32) {
 //                    console.log(this.status);
@@ -161,11 +174,11 @@
                 this.startSlidesTimeout();
             },
             nextSlide(){
-                this.activeSlide++;
-                if (this.activeSlide >= this.slides.length) {
-                    this.activeSlide = 0;
+                this.activeSlideIdx++;
+                if (this.activeSlideIdx >= this.slides.length) {
+                    this.activeSlideIdx = 0;
                 }
-//               console.log('slide', this.activeSlide);
+//               console.log('slide', this.activeSlideIdx);
                 this.startSlidesTimeout();
             },
             startSlidesTimeout(){
@@ -175,14 +188,12 @@
                     this.nextSlide();
                 }, this.slidesInterval);
             },
-            //TODO::remove idx
-            loadImage(src, idx){
+            loadImage(src){
                 return new Promise(function (resolve) {
                     let img = new Image();
                     img.onload = function () {
                         const isHorizontal = this.width >= this.height;
                         resolve({
-//                            idx,
                             image: src,
                             isHorizontal: isHorizontal,
                             isVertical: !isHorizontal,
@@ -200,22 +211,10 @@
             loadImages(){
                 var promises = [];
 
-                this.images.forEach((item, idx)=> {
-                    promises.push(this.loadImage(item.image, idx));
+                this.images.forEach(item => {
+                    promises.push(this.loadImage(item.image));
                 });
                 return Promise.all(promises);
-            },
-            slideTemplate(count){
-                switch (count) {
-                    case 3:
-                        return 'TripleSlide';
-                    case 4:
-                        return 'FourImagesSlide';
-                    case 5:
-                        return 'FiveImagesSlide';
-                    default:
-                        return 'SimpleSlide';
-                }
             },
             getRandomInt(min, max) {
                 min = Math.ceil(min);

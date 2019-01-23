@@ -1,26 +1,29 @@
 <template>
-    <div :class="['slide', 'slide-inner', 'is-five', `is-five-${slideClass}`]">
+    <div :class="['slide-inner', 'is-five', `is-five-${slideClass}`]">
         <div class="left-column">
-            <slide-animation v-for="(img, idx) in leftColumn" :animationDuration="animationDuration"
-                             class="img-animated-wrapper">
-                <img :src="img.image" :key="idx" v-if="showImages" :data-idx="img.idx"/>
-            </slide-animation>
+            <div v-for="(img, idx) in leftColumn" :key="idx" class="img-animated-wrapper">
+                <slide-animation :animationDuration="animationDuration">
+                    <img :src="img.image" v-if="showImages" :data-idx="img.idx"/>
+                </slide-animation>
+            </div>
         </div>
         <div class="center-column" v-if="centerImg">
-            <slide-animation :animationDuration="animationDuration" class="img-animated-wrapper">
-                <img :src="centerImg.image" key="centered" v-if="showImages" :data-idx="centerImg.idx"/>
-            </slide-animation>
+            <div class="img-animated-wrapper">
+                <slide-animation :animationDuration="animationDuration">
+                    <img :src="centerImg.image" v-if="showImages" :data-idx="centerImg.idx"/>
+                </slide-animation>
+            </div>
         </div>
         <div class="right-column">
-            <slide-animation v-for="(img, idx) in rightColumn" :animationDuration="animationDuration"
-                             class="img-animated-wrapper">
-                <img :src="img.image" :key="idx" v-if="showImages" :data-idx="img.idx"/>
-            </slide-animation>
+            <div v-for="(img, idx) in rightColumn" :key="idx" class="img-animated-wrapper">
+                <slide-animation :animationDuration="animationDuration">
+                    <img :src="img.image" v-if="showImages" :data-idx="img.idx"/>
+                </slide-animation>
+            </div>
         </div>
     </div>
 </template>
 <script>
-    import SlideAnimation from "@/components/SlideAnimation";
     import SimpleSlide from "@/components/slides/SimpleSlide";
     export default {
         name: 'FiveImagesSlide',

@@ -1,11 +1,9 @@
 import Vue from 'vue'
-import App from './App.vue'
-import '@/assets/main.scss'
-import '@/assets/slides.scss'
-import '@/assets/animation.scss'
+import Demo from './components/Demo.vue'
+
 
 Vue.config.productionTip = false
 
 new Vue({
-  render: h => h(App),
+  render: h => h(Demo),
 }).$mount('#app')

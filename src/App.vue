@@ -1,17 +1,17 @@
 <template>
-    <div id="app">
-        <!--<transition name="fade">-->
-            <!--<h1 v-if="noImages  && !isLoading">No Images</h1>-->
-        <!--</transition>-->
-        <!--<loading-spinner :delay="1500" :loader="isLoading" class="center" text="Loading Images"></loading-spinner>-->
-        <!--<div :class="['slide', {'active' : activeSlideIdx == idx}]" v-for="(slide, idx) in slides" :key="idx">-->
-            <!--<component :is="slideTemplate(slide.length)"-->
-                       <!--:animationDuration="animationDuration"-->
-                       <!--:slidesInterval="slidesInterval"-->
-                       <!--v-if="activeSlideIdx == idx"-->
-                       <!--:status="status"-->
-                       <!--:images="slide"/>-->
-        <!--</div>-->
+    <div class="collages-slideshow">
+        <transition name="fade">
+            <h1 v-if="noImages  && !isLoading">No Images</h1>
+        </transition>
+        <loading-spinner :delay="1500" :loader="isLoading" class="center" text="Loading Images"></loading-spinner>
+        <div :class="['slide', {'active' : activeSlideIdx == idx}]" v-for="(slide, idx) in slides" :key="idx">
+            <component :is="slideTemplate(slide.length)"
+                       :animationDuration="animationDuration"
+                       :slidesInterval="slidesInterval"
+                       v-if="activeSlideIdx == idx"
+                       :status="status"
+                       :images="slide"/>
+        </div>
     </div>
 </template>
 
@@ -21,13 +21,35 @@
     import FourImagesSlide from '@/components/slides/FourImagesSlide';
     import FiveImagesSlide from '@/components/slides/FiveImagesSlide';
     import LoadingSpinner from '@/components/LoadingSpinner';
-    import
+    import './assets/main.scss'
+    import './assets/slides.scss'
+    import './assets/animation.scss'
     export default {
-        name: 'app',
+        name: 'VueCollageSlideshow',
         components: {
             SimpleSlide, TripleSlide, FourImagesSlide, LoadingSpinner, FiveImagesSlide
         },
-        props:['images'],
+        props: {
+            images: {
+                type: Array,
+                required: true
+            },
+            slidesInterval: {
+                type: Number,
+                default: 4000,
+                validator: (value) => value >= 1000
+            },
+            collagesSizeFrom: {
+                type: Number,
+                default: 2,
+                validator: (value) => value >= 1 && value <= 5
+            },
+            collagesSizeTo: {
+                type: Number,
+                default: 5,
+                validator: (value) => value >= 1 && value <= 5
+            }
+        },
         data(){
             return {
                 slides: [],
@@ -35,76 +57,8 @@
                 status: 0, //  0 = idle, 1 = running, 2 = paused, 3 = resumed
                 slidesTimeout: false,
                 activeSlideIdx: 0,
-                slidesInterval: 4000,
                 animationDuration: 500,
-                animationTimeout: false,
-//                images: [
-//                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-//                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
-//                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
-//
-//
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-//
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-//
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-//
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-//
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-//
-//                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
-//                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
-//
-//
-//                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
-//                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
-//
-//
-//                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-//                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
-//                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
-//
-//
-//                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-//
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-//
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-//                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
-//                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop-1024x683.jpg"},
-//
-//                    {image: "https://www.wikipedia.org/portal/wikipedia.org/assets/img/Wikipedia-logo-v2.png"},
-//                    {image: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"},
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-//
-//
-//                    {image: "https://www.catster.com/wp-content/uploads/2017/08/A-fluffy-cat-looking-funny-surprised-or-concerned.jpg"},
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-//                    {image: "http://r.ddmcdn.com/s_f/o_1/cx_462/cy_245/cw_1349/ch_1349/w_720/APL/uploads/2015/06/caturday-shutterstock_149320799.jpg"},
-//
-//                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
-//                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop-1024x683.jpg"},
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-//
-//                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-//
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/802px-Eiffel_Tower_Vertical.JPG"},
-//                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
-//                    {image: "https://www.rd.com/wp-content/uploads/2016/04/01-cat-wants-to-tell-you-laptop.jpg"},
-//                    {image: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"},
-//                    {image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Eiffel_Tower_Vertical.JPG/2048px-Eiffel_Tower_Vertical.JPG"},
-//
-//                ]
+                animationTimeout: false
             }
         },
         computed: {
@@ -217,16 +171,18 @@
                 return Promise.all(promises);
             },
             getRandomInt(min, max) {
-                min = Math.ceil(min);
-                max = Math.floor(max);
-                return Math.floor(Math.random() * (max - min + 1)) + min;
+                let min_val = Math.min(min, max);
+                let max_val = Math.max(min, max);
+                min_val = Math.min(Math.max(Math.ceil(min_val), 1), 5);
+                max_val = Math.min(Math.max(Math.floor(max_val), 1), 5);
+                return Math.floor(Math.random() * (max_val - min_val + 1)) + min_val;
             },
             createCollages(images){
                 this.slides = [];
                 let index = 0;
                 let size = 1;
                 while (index < images.length) {
-                    size = this.getRandomInt(2, 5);
+                    size = this.getRandomInt(this.collagesSizeFrom, this.collagesSizeTo);
                     let slide = images.slice(index, size + index);
                     this.slides.push(slide);
                     index = size + index;

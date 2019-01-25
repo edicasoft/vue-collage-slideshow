@@ -51,5 +51,5 @@ export default {
 | showLoadingMsg      | Boolean   | true                                            | Whetere display the loader for images preloading or not |
 | loadingMsg          | String    | 'Loading...'                                    | Define the text of the preloader message |
 
-##Contribution
+## Contribution
 Feel free to contribute on [GitHub](https://github.com/edicasoft/vue-collage-slideshow)

@@ -1,7 +1,7 @@
 {
   "name": "vue-collage-slideshow",
   "description": "Responsive slideshow with animated collages for Vue.js",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/edicasoft/vue-collage-slideshow.git"

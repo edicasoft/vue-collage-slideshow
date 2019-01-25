@@ -1,11 +1,10 @@
 <template>
-  <div class="spinner-wrapper" v-show="showLoader">
-    <div class="spinner-icon"></div>
-    <div class="loading-text" v-if="text">{{text}}</div>
+  <div class="vc-slideshow-spinner-wrapper" v-show="showLoader">
+    <div class="vc-slideshow-spinner-icon"></div>
+    <div class="vc-slideshow-loading-text" v-if="text">{{text}}</div>
   </div>
 </template>
 <script type="text/ecmascript-6">
-  // loader prop is required when using delay for vuex-loading component
   export default {
     props: ['text', 'delay', 'loader'],
     computed: {

@@ -1,6 +1,11 @@
 <template>
     <div id="app">
-        <slideshow :images="images" :collagesSizeFrom="2" :collagesSizeTo="5" :slidesInterval="4000"></slideshow>
+        <slideshow :images="images"
+                   :collageSizeMin="2"
+                   :collageSizeMax="5"
+                   :slidesInterval="4000"
+                   height="100%">
+        </slideshow>
     </div>
 </template>
 
@@ -62,6 +67,7 @@
 </script>
 <style>
     html, body, #app{
+        margin: 0;
         height: 100%;
     }
 </style>

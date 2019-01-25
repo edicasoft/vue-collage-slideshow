@@ -1,7 +1,7 @@
-.collages-slideshow {
+.vc-slideshow {
   $slidePadding: 0.4em;
   $slidePaddingHalf: ($slidePadding/2);
-  .slide-inner {
+  .vc-slideshow-slide-inner {
     height: 100%;
     width: 100%;
     display: flex;
@@ -9,17 +9,17 @@
     align-items: center;
     justify-content: center;
   }
-  .slide.active {
+  .vc-slideshow-slide.vc-slideshow-active {
     height: 100%;
     width: 100%;
-    .img-animated-wrapper {
+    .vc-slideshow-img-animated-wrapper {
       left: 0;
       top: 0;
       overflow: hidden;
       position: absolute;
       width: 100%;
       height: 100%;
-      img {
+      img.vc-slideshow-img {
         width: 100%;
         height: 100%;
         padding: 0;
@@ -32,15 +32,15 @@
       }
     }
 
-    .is-triple {
-      .left-column {
+    .vc-slideshow-is-triple {
+      .vc-slideshow-left-column {
         overflow: hidden;
         position: relative;
       }
-      .right-column {
+      .vc-slideshow-right-column {
         overflow: hidden;
         position: relative;
-        .img-animated-wrapper {
+        .vc-slideshow-img-animated-wrapper {
           height: calc(50% - #{$slidePaddingHalf});
           width: 100%;
           &:last-child {
@@ -50,18 +50,18 @@
       }
       //50|50
       //  |50
-      &.is-triple-1 {
-        .right-column {
+      &.vc-slideshow-is-triple-1 {
+        .vc-slideshow-right-column {
           width: 50%;
           height: 100%;
-          .img-animated-wrapper {
+          .vc-slideshow-img-animated-wrapper {
             left: $slidePadding;
           }
         }
-        .left-column {
+        .vc-slideshow-left-column {
           width: 50%;
           height: 100%;
-          .img-animated-wrapper {
+          .vc-slideshow-img-animated-wrapper {
             width: 100%;
             height: 100%;
           }
@@ -69,16 +69,16 @@
       }
       //50|50
       //50|
-      &.is-triple-2 {
+      &.vc-slideshow-is-triple-2 {
         flex-direction: row-reverse;
-        .right-column {
+        .vc-slideshow-right-column {
           width: 50%;
           height: 100%;
         }
-        .left-column {
+        .vc-slideshow-left-column {
           width: 50%;
           height: 100%;
-          .img-animated-wrapper {
+          .vc-slideshow-img-animated-wrapper {
             width: 100%;
             height: 100%;
             left: $slidePadding;
@@ -87,16 +87,16 @@
       }
       //30|70
       //30|
-      &.is-triple-3 {
+      &.vc-slideshow-is-triple-3 {
         flex-direction: row-reverse;
-        .right-column {
+        .vc-slideshow-right-column {
           width: 30%;
           height: 100%;
         }
-        .left-column {
+        .vc-slideshow-left-column {
           width: 70%;
           height: 100%;
-          .img-animated-wrapper {
+          .vc-slideshow-img-animated-wrapper {
             width: 100%;
             height: 100%;
             left: $slidePadding;
@@ -105,29 +105,29 @@
       }
       //70|30
       //  |30
-      &.is-triple-4 {
-        .right-column {
+      &.vc-slideshow-is-triple-4 {
+        .vc-slideshow-right-column {
           width: 30%;
           height: 100%;
-          .img-animated-wrapper {
+          .vc-slideshow-img-animated-wrapper {
             left: $slidePadding;
           }
         }
-        .left-column {
+        .vc-slideshow-left-column {
           width: 70%;
           height: 100%;
-          .img-animated-wrapper {
+          .vc-slideshow-img-animated-wrapper {
             width: 100%;
             height: 100%;
           }
         }
       }
       //three vertical images
-      &.is-triple-5 {
-        .right-column {
+      &.vc-slideshow-is-triple-5 {
+        .vc-slideshow-right-column {
           width: calc(100% - 33.333333%);
           height: 100%;
-          .img-animated-wrapper {
+          .vc-slideshow-img-animated-wrapper {
             width: calc(50% - #{$slidePadding});
             height: 100%;
             left: $slidePadding;
@@ -137,10 +137,10 @@
             }
           }
         }
-        .left-column {
+        .vc-slideshow-left-column {
           width: 33.333333%;
           height: 100%;
-          .img-animated-wrapper {
+          .vc-slideshow-img-animated-wrapper {
             width: 100%;
             height: 100%;
           }
@@ -148,15 +148,15 @@
       }
     }
 
-    .is-double {
-      .img-animated-wrapper {
+    .vc-slideshow-is-double {
+      .vc-slideshow-img-animated-wrapper {
         width: 50%;
         &:last-child {
           left: calc(50% + #{$slidePadding});
         }
       }
-      &.is-double-2 {
-        .img-animated-wrapper {
+      &.vc-slideshow-is-double-2 {
+        .vc-slideshow-img-animated-wrapper {
           width: 30%;
           &:last-child {
             width: 70%;
@@ -164,8 +164,8 @@
           }
         }
       }
-      &.is-double-3 {
-        .img-animated-wrapper {
+      &.vc-slideshow-is-double-3 {
+        .vc-slideshow-img-animated-wrapper {
           width: 30%;
           left: calc(70% + #{$slidePadding});
           &:last-child {
@@ -176,16 +176,16 @@
       }
     }
 
-    .is-single {
-      img {
+    .vc-slideshow-is-single {
+      img.vc-slideshow-img {
         object-fit: contain;
-        &.is-horizontal {
+        &.vc-slideshow-is-horizontal {
           object-fit: cover;
         }
       }
     }
-    .is-four {
-      .right-column, .left-column {
+    .vc-slideshow-is-four {
+      .vc-slideshow-right-column, .vc-slideshow-left-column {
         width: 50%;
         height: 100%;
         overflow: hidden;
@@ -194,9 +194,9 @@
       //50|50
       //--|--
       //50|50
-      &.is-four-1 {
-        .right-column, .left-column {
-          .img-animated-wrapper {
+      &.vc-slideshow-is-four-1 {
+        .vc-slideshow-right-column, .vc-slideshow-left-column {
+          .vc-slideshow-img-animated-wrapper {
             height: calc(50% - #{$slidePaddingHalf});
             width: 100%;
             &:last-child {
@@ -204,10 +204,10 @@
             }
           }
         }
-        .left-column .img-animated-wrapper {
+        .vc-slideshow-left-column .vc-slideshow-img-animated-wrapper {
           width: calc(100% - #{$slidePaddingHalf});
         }
-        .right-column .img-animated-wrapper {
+        .vc-slideshow-right-column .vc-slideshow-img-animated-wrapper {
           left: $slidePaddingHalf;
         }
 
@@ -218,16 +218,16 @@
       //   70   |30
       //        |--
       //        |30
-      &.is-four-2 {
-        .left-column {
+      &.vc-slideshow-is-four-2 {
+        .vc-slideshow-left-column {
           width: 70%;
-          .img-animated-wrapper {
+          .vc-slideshow-img-animated-wrapper {
             width: calc(100% - #{$slidePaddingHalf});
           }
         }
-        .right-column {
+        .vc-slideshow-right-column {
           width: 30%;
-          .img-animated-wrapper {
+          .vc-slideshow-img-animated-wrapper {
             left: $slidePaddingHalf;
             &:nth-child(1) {
               height: calc(33.333333% - #{$slidePaddingHalf});
@@ -249,18 +249,18 @@
       //30|   70
       //--|
       //30|
-      &.is-four-3 {
+      &.vc-slideshow-is-four-3 {
         flex-direction: row-reverse;
-        .left-column {
+        .vc-slideshow-left-column {
           width: 70%;
-          .img-animated-wrapper {
+          .vc-slideshow-img-animated-wrapper {
             left: $slidePaddingHalf;
             width: calc(100% - #{$slidePaddingHalf});
           }
         }
-        .right-column {
+        .vc-slideshow-right-column {
           width: 30%;
-          .img-animated-wrapper {
+          .vc-slideshow-img-animated-wrapper {
             width: calc(100% - #{$slidePaddingHalf});
             &:nth-child(1) {
               height: calc(33.333333% - #{$slidePaddingHalf});
@@ -280,13 +280,13 @@
       //    | 50
       // 50 |------
       //    |25|25
-      &.is-four-4 {
-        .left-column .img-animated-wrapper {
+      &.vc-slideshow-is-four-4 {
+        .vc-slideshow-left-column .vc-slideshow-img-animated-wrapper {
           width: calc(100% - #{$slidePaddingHalf});
           height: 100%;
         }
-        .right-column {
-          .img-animated-wrapper {
+        .vc-slideshow-right-column {
+          .vc-slideshow-img-animated-wrapper {
             left: $slidePaddingHalf;
             &:nth-child(1) {
               height: calc(50% - #{$slidePaddingHalf});
@@ -310,15 +310,15 @@
       //   50 |
       // -----| 50
       // 25|25|
-      &.is-four-5 {
+      &.vc-slideshow-is-four-5 {
         flex-direction: row-reverse;
-        .left-column .img-animated-wrapper {
+        .vc-slideshow-left-column .vc-slideshow-img-animated-wrapper {
           left: $slidePaddingHalf;
           width: 100%;
           height: 100%;
         }
-        .right-column {
-          .img-animated-wrapper {
+        .vc-slideshow-right-column {
+          .vc-slideshow-img-animated-wrapper {
             &:nth-child(1) {
               height: calc(50% - #{$slidePaddingHalf});
               width: calc(100% - #{$slidePaddingHalf})
@@ -339,27 +339,27 @@
         }
       }
     }
-    .is-five {
-      .right-column, .left-column, .center-column {
+    .vc-slideshow-is-five {
+      .vc-slideshow-right-column, .vc-slideshow-left-column, .vc-slideshow-center-column {
         overflow: hidden;
         position: relative;
       }
       //30|  |30
       //--|30|--
       //30|  |30
-      &.is-five-1 {
-        .right-column, .left-column, .center-column {
+      &.vc-slideshow-is-five-1 {
+        .vc-slideshow-right-column, .vc-slideshow-left-column, .vc-slideshow-center-column {
           height: 100%;
           width: 33.33333%;
         }
-        .center-column {
-          .img-animated-wrapper {
+        .vc-slideshow-center-column {
+          .ivc-slideshow-mg-animated-wrapper {
             width: calc(100% - #{$slidePadding});
             left: $slidePaddingHalf;
           }
         }
-        .left-column {
-          .img-animated-wrapper {
+        .vc-slideshow-left-column {
+          .vc-slideshow-img-animated-wrapper {
             height: calc(50% - #{$slidePaddingHalf});
             width: calc(100% - #{$slidePaddingHalf});
             &:nth-child(1) {
@@ -369,8 +369,8 @@
             }
           }
         }
-        .right-column {
-          .img-animated-wrapper {
+        .vc-slideshow-right-column {
+          .vc-slideshow-img-animated-wrapper {
             left: $slidePaddingHalf;
             height: calc(50% - #{$slidePaddingHalf});
             width: calc(100% - #{$slidePaddingHalf});
@@ -387,19 +387,19 @@
       //25|--|
       //  |25|
 
-      &.is-five-3 {
-        .right-column, .left-column {
+      &.vc-slideshow-is-five-3 {
+        .vc-slideshow-right-column, .vc-slideshow-left-column {
           height: 100%;
           width: 50%;
         }
-        .left-column {
-          .img-animated-wrapper {
+        .vc-slideshow-left-column {
+          .vc-slideshow-img-animated-wrapper {
             height: 100%;
             width: calc(100% - #{$slidePaddingHalf});
           }
         }
-        .right-column {
-          .img-animated-wrapper {
+        .vc-slideshow-right-column {
+          .vc-slideshow-img-animated-wrapper {
             left: $slidePaddingHalf;
             height: calc(50% - #{$slidePaddingHalf});
             width: calc(100% - #{$slidePaddingHalf});
@@ -427,21 +427,21 @@
       }
 
       //reverse of the 'is-five-3'
-      &.is-five-2 {
+      &.vc-slideshow-is-five-2 {
         flex-direction: row-reverse;
-        .right-column, .left-column {
+        .vc-slideshow-right-column, .vc-slideshow-left-column {
           height: 100%;
           width: 50%;
         }
-        .left-column {
-          .img-animated-wrapper {
+        .vc-slideshow-left-column {
+          .vc-slideshow-img-animated-wrapper {
             height: 100%;
             left: $slidePaddingHalf;
             width: calc(100% - #{$slidePaddingHalf});
           }
         }
-        .right-column {
-          .img-animated-wrapper {
+        .vc-slideshow-right-column {
+          .vc-slideshow-img-animated-wrapper {
             height: calc(50% - #{$slidePaddingHalf});
             width: calc(100% - #{$slidePaddingHalf});
             &:nth-child(1) {

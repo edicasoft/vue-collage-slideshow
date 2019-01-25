@@ -1,9 +1,9 @@
 <template>
-    <div :class="['slide-inner', slideClass]">
-        <div class="img-animated-wrapper" v-for="(img, idx) in images" :key="idx">
+    <div :class="['vc-slideshow-slide-inner', slideClass]">
+        <div class="vc-slideshow-img-animated-wrapper" v-for="(img, idx) in images" :key="idx">
             <slide-animation :animationDuration="animationDuration">
                 <img :src="img.image" v-if="showImages"
-                     :class="[{'is-vertical': img.isVertical, 'is-horizontal': img.isHorizontal}]"/>
+                     :class="['vc-slideshow-img',{'vc-slideshow-is-vertical': img.isVertical, 'vc-slideshow-is-horizontal': img.isHorizontal}]"/>
             </slide-animation>
         </div>
     </div>
@@ -37,14 +37,14 @@
             slideClass(){
                 switch (this.images.length) {
                     case 1:
-                        return 'is-single';
+                        return 'vc-slideshow-is-single';
                         //vertical image is always goes first (in order to contain maximum 50%, usually 30%, of the screen width)
                     case 2:
                         if (this.verticalImages.length > 0) {
                             this.setFirstVertical(this.images);
-                            return `is-double is-double-${this.getRandomInt(1, 3)}`;
+                            return `vc-slideshow-is-double vc-slideshow-is-double-${this.getRandomInt(1, 3)}`;
                         } else { //use 50|50 template if there are no vertical images
-                            return `is-double is-double-1`;
+                            return `vc-slideshow-is-double vc-slideshow-is-double-1`;
                         }
                 }
             }

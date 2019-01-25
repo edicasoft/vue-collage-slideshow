@@ -1,10 +1,10 @@
 <template>
-    <div class="collages-slideshow">
+    <div class="vc-slideshow" :style="{height}">
         <transition name="fade">
-            <h1 v-if="noImages  && !isLoading">No Images</h1>
+            <div class="vc-slideshow-h1" v-if="noImages  && !isLoading && showNoImagesMsg">{{noImagesMsg}}</div>
         </transition>
-        <loading-spinner :delay="1500" :loader="isLoading" class="center" text="Loading Images"></loading-spinner>
-        <div :class="['slide', {'active' : activeSlideIdx == idx}]" v-for="(slide, idx) in slides" :key="idx">
+        <loading-spinner v-if="showLoadingMsg" :delay="1500" :loader="isLoading" :text="loadingMsg"></loading-spinner>
+        <div :class="['vc-slideshow-slide', {'vc-slideshow-active' : activeSlideIdx == idx}]" v-for="(slide, idx) in slides" :key="idx">
             <component :is="slideTemplate(slide.length)"
                        :animationDuration="animationDuration"
                        :slidesInterval="slidesInterval"
@@ -34,6 +34,10 @@
                 type: Array,
                 required: true
             },
+            height: {
+                type: String,
+                default: '600px'
+            },
             slidesInterval: {
                 type: Number,
                 default: 4000,
@@ -48,7 +52,23 @@
                 type: Number,
                 default: 5,
                 validator: (value) => value >= 1 && value <= 5
-            }
+            },
+            noImagesMsg:{
+                type: String,
+                default: 'No Images',
+            },
+            showNoImagesMsg:{
+                type: Boolean,
+                default: true,
+            },
+            showLoadingMsg:{
+                type: Boolean,
+                default: true,
+            },
+            loadingMsg:{
+                type: String,
+                default: 'Loading...',
+            },
         },
         data(){
             return {

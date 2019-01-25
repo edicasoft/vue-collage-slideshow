@@ -1,16 +1,16 @@
 <template>
-    <div :class="['slide-inner', 'is-four', `is-four-${slideClass}`]">
-        <div class="left-column">
-            <div class="img-animated-wrapper" v-for="(img, idx) in leftColumn" :key="idx">
+    <div :class="['vc-slideshow-slide-inner', 'vc-slideshow-is-four', `vc-slideshow-is-four-${slideClass}`]">
+        <div class="vc-slideshow-left-column">
+            <div class="vc-slideshow-img-animated-wrapper" v-for="(img, idx) in leftColumn" :key="idx">
                 <slide-animation :animationDuration="animationDuration">
-                    <img :src="img.image" v-if="showImages"/>
+                    <img :src="img.image" v-if="showImages" class="vc-slideshow-img"/>
                 </slide-animation>
             </div>
         </div>
-        <div class="right-column">
-            <div class="img-animated-wrapper" v-for="(img, idx) in rightColumn" :key="idx">
+        <div class="vc-slideshow-right-column">
+            <div class="vc-slideshow-img-animated-wrapper" v-for="(img, idx) in rightColumn" :key="idx">
                 <slide-animation :animationDuration="animationDuration">
-                    <img :src="img.image" v-if="showImages"/>
+                    <img :src="img.image" v-if="showImages" class="vc-slideshow-img"/>
                 </slide-animation>
             </div>
         </div>

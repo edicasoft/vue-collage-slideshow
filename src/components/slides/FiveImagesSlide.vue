@@ -1,23 +1,23 @@
 <template>
-    <div :class="['slide-inner', 'is-five', `is-five-${slideClass}`]">
-        <div class="left-column">
-            <div v-for="(img, idx) in leftColumn" :key="idx" class="img-animated-wrapper">
+    <div :class="['vc-slideshow-slide-inner', 'vc-slideshow-is-five', `vc-slideshow-is-five-${slideClass}`]">
+        <div class="vc-slideshow-left-column">
+            <div v-for="(img, idx) in leftColumn" :key="idx" class="vc-slideshow-img-animated-wrapper">
                 <slide-animation :animationDuration="animationDuration">
-                    <img :src="img.image" v-if="showImages" :data-idx="img.idx"/>
+                    <img :src="img.image" v-if="showImages" :data-idx="img.idx" class="vc-slideshow-img"/>
                 </slide-animation>
             </div>
         </div>
-        <div class="center-column" v-if="centerImg">
-            <div class="img-animated-wrapper">
+        <div class="vc-slideshow-center-column" v-if="centerImg">
+            <div class="vc-slideshow-img-animated-wrapper">
                 <slide-animation :animationDuration="animationDuration">
-                    <img :src="centerImg.image" v-if="showImages" :data-idx="centerImg.idx"/>
+                    <img :src="centerImg.image" v-if="showImages" :data-idx="centerImg.idx" class="vc-slideshow-img"/>
                 </slide-animation>
             </div>
         </div>
-        <div class="right-column">
-            <div v-for="(img, idx) in rightColumn" :key="idx" class="img-animated-wrapper">
+        <div class="vc-slideshow-right-column">
+            <div v-for="(img, idx) in rightColumn" :key="idx" class="vc-slideshow-img-animated-wrapper">
                 <slide-animation :animationDuration="animationDuration">
-                    <img :src="img.image" v-if="showImages" :data-idx="img.idx"/>
+                    <img :src="img.image" v-if="showImages" :data-idx="img.idx" class="vc-slideshow-img"/>
                 </slide-animation>
             </div>
         </div>

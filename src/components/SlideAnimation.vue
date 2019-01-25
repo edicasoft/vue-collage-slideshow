@@ -30,7 +30,7 @@
                 let animation = freeAnimations.length > 0 ? this.getRandomElement(freeAnimations) : this.getRandomElement(animations);
 //                console.log('freeAnimations', freeAnimations);
                 animation.isTaken = true;
-                el.classList.add(`slide-${animation.name}-enter`);
+                el.classList.add(`vc-slideshow-slide-${animation.name}-enter`);
                 el.setAttribute('data-animation', animation.name);
 //                console.log('animation', animation.name);
                 return animation.name;
@@ -42,7 +42,7 @@
                 setTimeout(()=> {
                     const animationName = el.getAttribute('data-animation');
 //                   console.log('enterEl', animationName);
-                    el.classList.remove(`slide-${animationName}-enter`);
+                    el.classList.remove(`vc-slideshow-slide-${animationName}-enter`);
                     done();
                 }, 100);
             },
@@ -50,7 +50,7 @@
                 //exit animation
                 const animationName = el.getAttribute('data-animation');
                 //console.log('leave', animationName);
-                el.classList.add(`slide-${animationName}-leave-active`);
+                el.classList.add(`vc-slideshow-slide-${animationName}-leave-active`);
                 setTimeout(()=> {
 //                   console.log('done');
                     done();

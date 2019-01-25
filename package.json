@@ -16,11 +16,12 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "build-bundle": "vue-cli-service build --target lib --name vue-collage-slideshow"
+    "build-bundle": "vue-cli-service build --target lib --name VueCollageSlideshow"
   },
   "dependencies": {
     "@flockos/vue-components": "^0.1.71",
-    "vue": "^2.5.17"
+    "vue": "^2.5.17",
+    "vue-carousel": "^0.17.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.1.1",

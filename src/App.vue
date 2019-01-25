@@ -39,12 +39,12 @@
                 default: 4000,
                 validator: (value) => value >= 1000
             },
-            collagesSizeFrom: {
+            collageSizeMin: {
                 type: Number,
                 default: 2,
                 validator: (value) => value >= 1 && value <= 5
             },
-            collagesSizeTo: {
+            collageSizeMax: {
                 type: Number,
                 default: 5,
                 validator: (value) => value >= 1 && value <= 5
@@ -182,7 +182,7 @@
                 let index = 0;
                 let size = 1;
                 while (index < images.length) {
-                    size = this.getRandomInt(this.collagesSizeFrom, this.collagesSizeTo);
+                    size = this.getRandomInt(this.collageSizeMin, this.collageSizeMax);
                     let slide = images.slice(index, size + index);
                     this.slides.push(slide);
                     index = size + index;

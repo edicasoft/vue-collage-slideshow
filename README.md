@@ -9,7 +9,7 @@ Slideshow takes up 100% of the container height.
 [Check out the demo on jsFiddle](https://jsfiddle.net/dmykhailova/xwgasdt7/show/)
 ## Installation:
 Just use `npm install --save vue-collage-slideshow`
-## Usage:
+## Set up:
 ### Global:
 ```
 import Vue from 'vue';

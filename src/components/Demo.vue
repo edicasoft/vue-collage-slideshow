@@ -1,9 +1,13 @@
 <template>
     <div id="app">
         <slideshow :images="images"
-                   :collageSizeMin="2"
+                   :collageSizeMin="3"
                    :collageSizeMax="5"
                    :slidesInterval="4000"
+                   :showNoImagesMsg="true"
+                   noImagesMsg="No Images"
+                   :showLoadingMsg="true"
+                   loadingMsg="Loading..."
                    height="100%">
         </slideshow>
     </div>
@@ -62,7 +66,7 @@
 
                 ]
             }
-        },
+        }
     }
 </script>
 <style>

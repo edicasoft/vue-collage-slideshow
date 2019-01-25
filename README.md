@@ -5,6 +5,8 @@ Every slide can contain up to 5 pictures.
 Using transition animation, the component creates a different slide effects for every image in a collage (slide from the left/right/top/bottom).
 Collages are made in a way that vertical and horizontal images fit to container as best as possible.
 Slideshow takes up 100% of the container height.
+##Demo:
+[jsFiddle](https://jsfiddle.net/dmykhailova/xwgasdt7/show)
 ## Installation:
 Just use `npm install --save vue-collage-slideshow`
 ##Usage:
@@ -49,3 +51,4 @@ Check out the demo here:
 `showLoadingMsg`: Type: Boolean. Default is true. Whetere display the loader for images preloading or not.
 `loadingMsg`: Type: String. Default is `Loading...`. Define the text of the preloader message.
 ```
+##Contribution

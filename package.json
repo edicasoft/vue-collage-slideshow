@@ -1,7 +1,7 @@
 {
   "name": "vue-collage-slideshow",
   "description": "Responsive slideshow with animated collages for Vue.js",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/edicasoft/vue-collage-slideshow.git"
@@ -21,7 +21,8 @@
   "dependencies": {
     "@flockos/vue-components": "^0.1.71",
     "vue": "^2.5.17",
-    "vue-carousel": "^0.17.0"
+    "vue-carousel": "^0.17.0",
+    "vue-gallery": "^1.5.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.1.1",
@@ -58,12 +59,13 @@
     "last 2 versions",
     "not ie <= 8"
   ],
-  "main": "./dist/vue-collage-slideshow.common.js",
+  "main": "./dist/VueCollageSlideshow.common.js",
   "files": [
     "dist/*",
     "src/*",
     "public/*",
     "*.json",
     "*.js"
-  ]
+  ],
+  "license": "MIT"
 }

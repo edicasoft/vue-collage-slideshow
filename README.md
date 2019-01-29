@@ -19,7 +19,7 @@ Vue.use(Slideshow);
 ```
 ### Local:
 ```
-import Slideshow from 'vue-carousel';
+import Slideshow from 'vue-collage-slideshow';
 
 export default {
   ...

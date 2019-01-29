@@ -1,6 +1,6 @@
 # vue-collage-slideshow
 Responsive slideshow with animated collages for Vue.js.
-After given images have loaded, component generates collages with different templates.
+After given images preloaded, component generates collages with different templates.
 Every slide can contain up to 5 pictures.
 Using transition animation, the component creates a different slide effects for every image in a collage (slide from the left/right/top/bottom).
 Collages are made in a way that vertical and horizontal images fit to container as best as possible.

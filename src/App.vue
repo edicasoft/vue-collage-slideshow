@@ -99,7 +99,7 @@
                     .finally(()=> {
                         this.isLoading = false;
                         this.play();
-                        window.addEventListener('keyup', this.pressSpacebar)
+//                        window.addEventListener('keyup', this.pressSpacebar)
                     });
         },
         methods: {

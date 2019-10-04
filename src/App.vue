@@ -1,10 +1,17 @@
 <template>
     <div class="vc-slideshow" :style="{height}">
         <transition name="fade">
-            <div class="vc-slideshow-h1" v-if="noImages  && !isLoading && showNoImagesMsg">{{noImagesMsg}}</div>
+            <slot name="empty" v-if="noImages  && !isLoading && showNoImagesMsg">
+                <div class="vc-slideshow-h1">
+                    {{noImagesMsg}}
+                </div>
+            </slot>
         </transition>
-        <loading-spinner v-if="showLoadingMsg" :delay="1500" :loader="isLoading" :text="loadingMsg"></loading-spinner>
-        <div :class="['vc-slideshow-slide', {'vc-slideshow-active' : activeSlideIdx == idx}]" v-for="(slide, idx) in slides" :key="idx">
+        <slot name="loader" v-if="showLoadingMsg && isLoading">
+            <loading-spinner :delay="1500" :loader="isLoading" :text="loadingMsg"></loading-spinner>
+        </slot>
+        <div :class="['vc-slideshow-slide', {'vc-slideshow-active' : activeSlideIdx == idx}]"
+             v-for="(slide, idx) in slides" :key="idx">
             <component :is="slideTemplate(slide.length)"
                        :animationDuration="animationDuration"
                        :slidesInterval="slidesInterval"
@@ -53,21 +60,25 @@
                 default: 5,
                 validator: (value) => value >= 1 && value <= 5
             },
-            noImagesMsg:{
+            noImagesMsg: {
                 type: String,
                 default: 'No Images',
             },
-            showNoImagesMsg:{
+            showNoImagesMsg: {
                 type: Boolean,
                 default: true,
             },
-            showLoadingMsg:{
+            showLoadingMsg: {
                 type: Boolean,
                 default: true,
             },
-            loadingMsg:{
+            loadingMsg: {
                 type: String,
                 default: 'Loading...',
+            },
+            keyboardNavigation: {
+                type: Boolean,
+                default: false,
             },
         },
         data(){
@@ -99,7 +110,7 @@
                     .finally(()=> {
                         this.isLoading = false;
                         this.play();
-                        window.addEventListener('keyup', this.pressSpacebar)
+                        if (this.keyboardNavigation) window.addEventListener('keyup', this.pressKey)
                     });
         },
         methods: {
@@ -115,21 +126,40 @@
                         return 'SimpleSlide';
                 }
             },
-            pressSpacebar(e){
-                if (e.keyCode == 32) {
-//                    console.log(this.status);
-                    switch (this.status) {
-                        case 1:
-                        case 3:
-                            this.pause();
-                            break;
-                        case 2:
-                            this.resume();
-                            break;
-                        default:
-                            this.play()
-                    }
+            pressKey(e){
+                switch (e.keyCode) {
+                    case 32:
+                        this.onKeySpace();
+                        break;
+                    case 37:
+                        this.onKeyLeft();
+                        break;
+                    case 39:
+                        this.onKeyRight();
+                        break;
                 }
+            },
+            onKeySpace(){
+                //                    console.log(this.status);
+                switch (this.status) {
+                    case 1:
+                    case 3:
+                        this.pause();
+                        break;
+                    case 2:
+                        this.resume();
+                        break;
+                    default:
+                        this.play()
+                }
+            },
+            onKeyLeft(){
+                clearTimeout(this.animationTimeout);
+                this.animationTimeout = setTimeout(this.previousSlide, this.animationDuration);
+            },
+            onKeyRight(){
+                clearTimeout(this.animationTimeout);
+                this.animationTimeout = setTimeout(this.nextSlide, this.animationDuration);
             },
             pause(){
 //                console.log('pause');
@@ -152,8 +182,16 @@
                 if (this.activeSlideIdx >= this.slides.length) {
                     this.activeSlideIdx = 0;
                 }
-//               console.log('slide', this.activeSlideIdx);
-                this.startSlidesTimeout();
+//               console.log('nextSlide', this.activeSlideIdx);
+                if (this.status !== 2) this.startSlidesTimeout();
+            },
+            previousSlide(){
+                this.activeSlideIdx--;
+                if (this.activeSlideIdx < 0) {
+                    this.activeSlideIdx = this.slides.length - 1;
+                }
+//               console.log('previousSlide', this.activeSlideIdx);
+                if (this.status !== 2) this.startSlidesTimeout();
             },
             startSlidesTimeout(){
                 this.status = 1;

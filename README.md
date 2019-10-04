@@ -38,10 +38,23 @@ export default {
 | collageSizeMin      | Number    |  2                                              | Define the minimum collage size (number of images that can be in one collage) |
 | collageSizeMax      | Number    |  5                                              | Define the maximum number of images that can be in one collage |
 | slidesInterval      | Number    | 4000                                            | Minimum is `1000` for better experience. Define the time in miliseconds before the next slide will be played |
-| showNoImagesMsg     | Boolean   | true                                            | Whetere display "no images" text or not |
+| showNoImagesMsg     | Boolean   | true                                            | Whether display "no images" text or not |
 | noImagesMsg         | String    | 'No Images'                                     | Define the text of the message that shows up if there are no images |
-| showLoadingMsg      | Boolean   | true                                            | Whetere display the loader for images preloading or not |
+| showLoadingMsg      | Boolean   | true                                            | Whether display the loader for images preloading or not |
 | loadingMsg          | String    | 'Loading...'                                    | Define the text of the preloader message |
-
+| keyboardNavigation  | Boolean   | false                                           | Enable arrows navigation and play/pause on space button  |
+#### Slots:
+"loader" - slot to place loading message when images are loading
+```
+<template slot="loader">
+    <div id="loader">Loading...</div>
+</template>
+```
+"empty" - content to display when no items are present in the `images` array
+ ```
+<template slot="empty">
+    <div id="no-images">No images</div>
+</template>
+            ```
 ## Contribution
 Feel free to contribute on [GitHub](https://github.com/edicasoft/vue-collage-slideshow)

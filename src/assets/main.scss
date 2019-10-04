@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
 
 .vc-slideshow{
-  position: relative;
+  position: absolute;
+  width: 100%;
+  top: 0;
   height: 100%;
   margin: 0;
   padding: 0;

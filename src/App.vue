@@ -100,7 +100,7 @@
         created(){
             if (this.noImages) return;
             this.isLoading = true;
-            this.loadImages()
+            this.loadImages(this.images)
                     .then(values => {
                         this.createCollages(values.filter(item => !item.is_error));
                     })
@@ -220,10 +220,10 @@
                     img.src = src;
                 });
             },
-            loadImages(){
+            loadImages(images){
                 var promises = [];
 
-                this.images.forEach(item => {
+                images.forEach(item => {
                     promises.push(this.loadImage(item.image));
                 });
                 return Promise.all(promises);
@@ -236,7 +236,6 @@
                 return Math.floor(Math.random() * (max_val - min_val + 1)) + min_val;
             },
             createCollages(images){
-                this.slides = [];
                 let index = 0;
                 let size = 1;
                 while (index < images.length) {
@@ -245,6 +244,15 @@
                     this.slides.push(slide);
                     index = size + index;
                 }
+            },
+            add(images){
+                this.loadImages(images)
+                        .then(values => {
+                            this.createCollages(values.filter(item => !item.is_error));
+                        })
+                        .catch(()=> {
+//                       console.log(er);
+                        })
             }
         }
     }

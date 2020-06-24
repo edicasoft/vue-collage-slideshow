@@ -178,12 +178,12 @@
                 this.startSlidesTimeout();
             },
             nextSlide(){
-                this.activeSlideIdx++;
-                if (this.activeSlideIdx >= this.slides.length) {
-                    this.activeSlideIdx = 0;
-                }
-//               console.log('nextSlide', this.activeSlideIdx);
-                if (this.status !== 2) this.startSlidesTimeout();
+                this.activeSlideIdx++
+                this.$nextTick(()=>{
+                  this.activeSlideIdx = this.activeSlideIdx % this.slides.length
+//                console.log('nextSlide', this.activeSlideIdx);
+                  if (this.status !== 2) this.startSlidesTimeout();
+                })
             },
             previousSlide(){
                 this.activeSlideIdx--;

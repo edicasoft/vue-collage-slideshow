@@ -187,11 +187,13 @@
             },
             previousSlide(){
                 this.activeSlideIdx--;
-                if (this.activeSlideIdx < 0) {
-                    this.activeSlideIdx = this.slides.length - 1;
-                }
-//               console.log('previousSlide', this.activeSlideIdx);
-                if (this.status !== 2) this.startSlidesTimeout();
+                this.$nextTick(()=>{
+                    if (this.activeSlideIdx < 0) {
+                        this.activeSlideIdx = this.slides.length - 1;
+                    }
+    //               console.log('previousSlide', this.activeSlideIdx);
+                    if (this.status !== 2) this.startSlidesTimeout();
+                })
             },
             startSlidesTimeout(){
                 this.status = 1;

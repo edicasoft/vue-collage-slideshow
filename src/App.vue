@@ -98,9 +98,18 @@
             }
         },
         created(){
-            if (this.noImages) return;
-            this.isLoading = true;
-            this.loadImages(this.images)
+            this.loadSlideshow();
+        },
+        watch : {
+            images : function() {
+                this.loadSlideshow();
+            }
+        },
+        methods: {
+            loadSlideshow(){
+                if (this.noImages) return;
+                this.isLoading = true;
+                this.loadImages(this.images)
                     .then(values => {
                         this.createCollages(values.filter(item => !item.is_error));
                     })
@@ -112,8 +121,7 @@
                         this.play();
                         if (this.keyboardNavigation) window.addEventListener('keyup', this.pressKey)
                     });
-        },
-        methods: {
+            },
             slideTemplate(count){
                 switch (count) {
                     case 3:
